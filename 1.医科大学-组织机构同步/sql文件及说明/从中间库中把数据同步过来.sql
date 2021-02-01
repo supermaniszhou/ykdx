@@ -24,7 +24,7 @@ create table v_org_principal(
     IS_ENABLE VARCHAR2(50),
     CREATE_TIME date,
     UPDATE_TIME date
-)
+);
 
 --用户表信息
 create table V_ORG_MEMBER(
