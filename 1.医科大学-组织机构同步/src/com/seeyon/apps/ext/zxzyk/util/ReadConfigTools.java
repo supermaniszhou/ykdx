@@ -1,6 +1,9 @@
 package com.seeyon.apps.ext.zxzyk.util;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Properties;
 
 /**
@@ -10,11 +13,12 @@ public class ReadConfigTools {
     private Properties properties;
 
     public ReadConfigTools() {
-        InputStream inputStream = ReadConfigTools.class.getClassLoader().getResourceAsStream("xzykConf/xzykPlugin.properties");
-
-        this.properties = new Properties();
+        String path = Thread.currentThread().getContextClassLoader().getResource("xzykConf/xzykPlugin.properties").getPath();
+        File file = new File(path);
+        InputStream inputStream = null;
         try {
-            this.properties.load(inputStream);
+            inputStream = new FileInputStream(file);
+            this.properties.load(new InputStreamReader(inputStream, "UTF-8"));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -31,5 +35,13 @@ public class ReadConfigTools {
             ex.printStackTrace();
         }
         return result;
+    }
+
+    public Properties getProperties() {
+        return properties;
+    }
+
+    public void setProperties(Properties properties) {
+        this.properties = properties;
     }
 }
