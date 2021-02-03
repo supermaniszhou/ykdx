@@ -27,9 +27,9 @@ public class SyncConnectionUtil {
             jdbcAgent.execute(sql);
             return jdbcAgent.resultSetToList();
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("zhou:代码SyncConnectionUtil 31 行出错了：" + e.getMessage());
         } catch (BusinessException b) {
-            b.printStackTrace();
+            log.error("zhou:代码SyncConnectionUtil 33 行出错了：" + b.getMessage());
         }
         return null;
     }
@@ -45,7 +45,7 @@ public class SyncConnectionUtil {
         ) {
             ps.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("zhou:代码SyncConnectionUtil 方法delete 48 行出错了：" + e.getMessage());
         }
     }
 
@@ -62,7 +62,6 @@ public class SyncConnectionUtil {
         CTPRestClient restClient = clientManager.getRestClient();
         boolean ltFlag = restClient.authenticate(restUser, restPwd);
         return ltFlag ? restClient : null;
-
     }
 
     /**
