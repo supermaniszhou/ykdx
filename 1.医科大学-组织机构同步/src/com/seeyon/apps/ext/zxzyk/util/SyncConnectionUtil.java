@@ -17,7 +17,6 @@ import java.util.Map;
 public class SyncConnectionUtil {
     private static final Log log = LogFactory.getLog(SyncConnectionUtil.class);
 
-    private static ReadConfigTools configTools = new ReadConfigTools();
 
     public SyncConnectionUtil() {
     }
@@ -55,6 +54,7 @@ public class SyncConnectionUtil {
      * @return
      */
     public static CTPRestClient getOaRest() {
+        ReadConfigTools configTools = new ReadConfigTools();
         String restUrl = configTools.getString("xzyk.restInfo.url");
         String restUser = configTools.getString("xzyk.restInfo.username");
         String restPwd = configTools.getString("xzyk.restInfo.password");
@@ -70,6 +70,7 @@ public class SyncConnectionUtil {
      * @return
      */
     public static Connection getMidConnection() {
+        ReadConfigTools configTools = new ReadConfigTools();
         String driverName = configTools.getString("xzyk.midDataLink.driver");
         String url = configTools.getString("xzyk.midDataLink.url");
         String username = configTools.getString("xzyk.midDataLink.username");

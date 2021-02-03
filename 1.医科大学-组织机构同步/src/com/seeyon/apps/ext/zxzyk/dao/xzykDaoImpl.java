@@ -12,9 +12,9 @@ public class xzykDaoImpl implements xzykDao {
     @Override
     public List<Map<String, Object>> queryAll(String sql) throws SQLException {
         ResultSet rs = SyncConnectionUtil.getResultSet(sql);
-        while(rs.next()){
-            ResultSetMetaData metaData =rs.getMetaData();
-        }
+        ResultSetMetaData metaData = rs.getMetaData();
+        int count = metaData.getColumnCount();
+        System.out.println(count);
         return null;
     }
 

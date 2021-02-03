@@ -21,6 +21,8 @@ public class xzykController extends BaseController {
 
     private OrgMemberManager orgMemberManager = new OrgMemberManagerImpl();
 
+    private xzykManager xzykManager = new xzykManagerImpl();
+
     public ModelAndView index(HttpServletRequest request, HttpServletResponse response) throws Exception {
         return new ModelAndView("apps/ext/xzyk/index");
     }
@@ -38,6 +40,8 @@ public class xzykController extends BaseController {
 
         Map<String, Object> map = new HashMap<>();
         try {
+            String sql = "select * from USR_DATA.V_ORG_UNIT";
+            xzykManager.queryAll(sql);
             //部门
 //            orgDeptManager.insertOtherDept();
 //            orgDeptManager.updateOrgDept();
@@ -51,7 +55,7 @@ public class xzykController extends BaseController {
 //            orgMemberManager.updateOrgMember();
 
             //跟新人员启用状态
-            orgMemberManager.updateEnableOrgmember();
+//            orgMemberManager.updateEnableOrgmember();
 
 //            orgDeptManager.deleteOrgDept();
 //            orgMemberManager.deleteOrgMember();
