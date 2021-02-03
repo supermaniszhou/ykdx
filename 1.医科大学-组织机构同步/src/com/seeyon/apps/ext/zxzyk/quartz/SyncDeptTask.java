@@ -1,6 +1,5 @@
 package com.seeyon.apps.ext.zxzyk.quartz;
 
-import com.seeyon.apps.ext.zxzyk.dao.OrgCommon;
 import com.seeyon.apps.ext.zxzyk.manager.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +18,6 @@ public class SyncDeptTask implements Runnable {
 
     private OrgMemberManager orgMemberManager = new OrgMemberManagerImpl();
 
-    private OrgCommon orgCommon = new OrgCommon();
 
     @Override
     public void run() {
@@ -67,11 +65,4 @@ public class SyncDeptTask implements Runnable {
         this.orgMemberManager = orgMemberManager;
     }
 
-    public OrgCommon getOrgCommon() {
-        return orgCommon;
-    }
-
-    public void setOrgCommon(OrgCommon orgCommon) {
-        this.orgCommon = orgCommon;
-    }
 }

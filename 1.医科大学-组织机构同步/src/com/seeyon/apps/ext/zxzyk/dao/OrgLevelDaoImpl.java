@@ -1,6 +1,7 @@
 package com.seeyon.apps.ext.zxzyk.dao;
 
 import com.seeyon.apps.ext.zxzyk.po.OrgLevel;
+import com.seeyon.apps.ext.zxzyk.util.ReadConfigTools;
 import com.seeyon.apps.ext.zxzyk.util.SyncConnectionUtil;
 import com.seeyon.client.CTPRestClient;
 import net.sf.json.JSONObject;
@@ -14,6 +15,9 @@ import java.util.List;
 import java.util.Map;
 
 public class OrgLevelDaoImpl implements OrgLevelDao {
+
+    private ReadConfigTools configTools = new ReadConfigTools();
+
     @Override
     public List<OrgLevel> queryOrgLevel() {
         List<OrgLevel> levelList = new ArrayList<>();
@@ -27,7 +31,7 @@ public class OrgLevelDaoImpl implements OrgLevelDao {
             OrgLevel orgLevel = null;
             while (rs.next()) {
                 orgLevel = new OrgLevel();
-                orgLevel.setOrgAccountId(new OrgCommon().getOrgAccountId());
+                orgLevel.setOrgAccountId(configTools.getOrgAccountId());
                 orgLevel.setLevelcode(rs.getString("code"));
                 orgLevel.setLevelname(rs.getString("name"));
                 levelList.add(orgLevel);
@@ -57,7 +61,7 @@ public class OrgLevelDaoImpl implements OrgLevelDao {
                 Map map = null;
                 for (OrgLevel orgLevel : list) {
                     map = new HashMap();
-                    map.put("orgAccountId", new OrgCommon().getOrgAccountId());
+                    map.put("orgAccountId", configTools.getOrgAccountId());
                     map.put("code", orgLevel.getLevelcode());
                     map.put("name", orgLevel.getLevelname());
                     JSONObject json = client.post("/orgLevel", map, JSONObject.class);
@@ -98,7 +102,7 @@ public class OrgLevelDaoImpl implements OrgLevelDao {
             OrgLevel orgLevel = null;
             while (rs.next()) {
                 orgLevel = new OrgLevel();
-                orgLevel.setOrgAccountId(new OrgCommon().getOrgAccountId());
+                orgLevel.setOrgAccountId(configTools.getOrgAccountId());
                 orgLevel.setLevelcode(rs.getString("code"));
                 orgLevel.setLevelname(rs.getString("name"));
                 orgLevel.setLevelid(rs.getString("id"));
@@ -157,7 +161,7 @@ public class OrgLevelDaoImpl implements OrgLevelDao {
             OrgLevel orgLevel = null;
             while (rs.next()) {
                 orgLevel = new OrgLevel();
-                orgLevel.setOrgAccountId(new OrgCommon().getOrgAccountId());
+                orgLevel.setOrgAccountId(configTools.getOrgAccountId());
                 orgLevel.setLevelcode(rs.getString("code"));
                 orgLevel.setLevelname(rs.getString("name"));
                 orgLevel.setLevelid(rs.getString("id"));

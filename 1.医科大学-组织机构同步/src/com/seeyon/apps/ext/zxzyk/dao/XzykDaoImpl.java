@@ -5,17 +5,22 @@ import com.seeyon.apps.ext.zxzyk.util.SyncConnectionUtil;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class xzykDaoImpl implements xzykDao {
+public class XzykDaoImpl implements XzykDao {
     @Override
     public List<Map<String, Object>> queryAll(String sql) throws SQLException {
+        List<Map<String, Object>> mapList = new ArrayList<>();
+
         ResultSet rs = SyncConnectionUtil.getResultSet(sql);
-        ResultSetMetaData metaData = rs.getMetaData();
-        int count = metaData.getColumnCount();
-        System.out.println(count);
-        return null;
+        while (rs.next()) {
+            ResultSetMetaData metaData = rs.getMetaData();
+            int count = metaData.getColumnCount();
+            System.out.println(count);
+        }
+        return mapList;
     }
 
     @Override

@@ -3,7 +3,6 @@ package com.seeyon.apps.ext.zxzyk.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import com.alibaba.fastjson.JSONObject;
-import com.seeyon.apps.ext.zxzyk.dao.OrgCommon;
 import com.seeyon.apps.ext.zxzyk.manager.*;
 import com.seeyon.ctp.common.controller.BaseController;
 import org.springframework.web.servlet.ModelAndView;
@@ -13,7 +12,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class xzykController extends BaseController {
+public class XzykController extends BaseController {
 
     private OrgDeptManager orgDeptManager = new OrgDeptManagerImpl();
 
@@ -21,7 +20,7 @@ public class xzykController extends BaseController {
 
     private OrgMemberManager orgMemberManager = new OrgMemberManagerImpl();
 
-    private xzykManager xzykManager = new xzykManagerImpl();
+    private XzykManager xzykManager = new XzykManagerImpl();
 
     public ModelAndView index(HttpServletRequest request, HttpServletResponse response) throws Exception {
         return new ModelAndView("apps/ext/xzyk/index");
@@ -36,7 +35,6 @@ public class xzykController extends BaseController {
     }
 
     public ModelAndView syncDept(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        OrgCommon common = new OrgCommon();
 
         Map<String, Object> map = new HashMap<>();
         try {

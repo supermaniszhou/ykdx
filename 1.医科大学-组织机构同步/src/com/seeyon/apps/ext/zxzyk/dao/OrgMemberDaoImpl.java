@@ -2,6 +2,7 @@ package com.seeyon.apps.ext.zxzyk.dao;
 
 import com.seeyon.apps.ext.zxzyk.po.CtpOrgUser;
 import com.seeyon.apps.ext.zxzyk.po.OrgMember;
+import com.seeyon.apps.ext.zxzyk.util.ReadConfigTools;
 import com.seeyon.apps.ext.zxzyk.util.SyncConnectionUtil;
 import com.seeyon.client.CTPRestClient;
 import com.seeyon.ctp.util.DBAgent;
@@ -13,6 +14,8 @@ import java.sql.ResultSet;
 import java.util.*;
 
 public class OrgMemberDaoImpl implements OrgMemberDao {
+
+    private ReadConfigTools configTools=new ReadConfigTools();
 
     @Override
     public List<OrgMember> queryNoEnableMember() {
@@ -28,7 +31,7 @@ public class OrgMemberDaoImpl implements OrgMemberDao {
             while (rs.next()) {
                 orgMember = new OrgMember();
                 orgMember.setMemberid(rs.getString("id"));
-                orgMember.setOrgAccountId(new OrgCommon().getOrgAccountId());
+                orgMember.setOrgAccountId(configTools.getOrgAccountId());
                 orgMember.setMembercode(rs.getString("code"));
                 orgMember.setMembername(rs.getString("name"));
                 if ("1".equals(rs.getString("is_enable"))) {
@@ -117,7 +120,7 @@ public class OrgMemberDaoImpl implements OrgMemberDao {
             while (rs.next()) {
                 orgMember = new OrgMember();
                 orgMember.setMemberid(rs.getString("id"));
-                orgMember.setOrgAccountId(new OrgCommon().getOrgAccountId());
+                orgMember.setOrgAccountId(configTools.getOrgAccountId());
                 orgMember.setMembercode(rs.getString("code"));
                 orgMember.setMembername(rs.getString("name"));
                 orgMember.setLoginName(rs.getString("code"));
@@ -290,7 +293,7 @@ public class OrgMemberDaoImpl implements OrgMemberDao {
             while (rs.next()) {
                 orgMember = new OrgMember();
                 orgMember.setMemberid(rs.getString("id"));
-                orgMember.setOrgAccountId(new OrgCommon().getOrgAccountId());
+                orgMember.setOrgAccountId(configTools.getOrgAccountId());
                 orgMember.setMembercode(rs.getString("code"));
                 orgMember.setMembername(rs.getString("name"));
                 orgMember.setLoginName(rs.getString("code"));

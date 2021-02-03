@@ -2,6 +2,7 @@ package com.seeyon.apps.ext.zxzyk.dao;
 
 import com.alibaba.fastjson.JSONArray;
 import com.seeyon.apps.ext.zxzyk.po.OrgDept;
+import com.seeyon.apps.ext.zxzyk.util.ReadConfigTools;
 import com.seeyon.apps.ext.zxzyk.util.SyncConnectionUtil;
 import com.seeyon.apps.ext.zxzyk.util.TreeUtil;
 import com.seeyon.client.CTPRestClient;
@@ -20,9 +21,10 @@ import java.util.Map;
 /**
  * Created by Administrator on 2019-7-29.
  */
-public class OrgDeptDaoImpl extends OrgCommon implements OrgDeptDao {
+public class OrgDeptDaoImpl implements OrgDeptDao {
 
     private Logger log = LoggerFactory.getLogger(OrgDeptDaoImpl.class);
+    private ReadConfigTools tools = new ReadConfigTools();
 
     @Override
     public List<OrgDept> queryByFirstDept() {
@@ -36,7 +38,7 @@ public class OrgDeptDaoImpl extends OrgCommon implements OrgDeptDao {
             prep = connection.prepareStatement(sql);
             res = prep.executeQuery();
             OrgDept orgDept = null;
-            String superior = this.getOrgAccountId();
+            String superior = tools.getOrgAccountId();
             while (res.next()) {
                 orgDept = new OrgDept();
                 orgDept.setDeptcode(res.getString("code"));
@@ -70,7 +72,7 @@ public class OrgDeptDaoImpl extends OrgCommon implements OrgDeptDao {
             prep = connection.prepareStatement(sql);
             res = prep.executeQuery();
             OrgDept orgDept = null;
-            String superior = this.getOrgAccountId();
+            String superior = tools.getOrgAccountId();
             while (res.next()) {
                 orgDept = new OrgDept();
                 orgDept.setDeptcode(res.getString("code"));
@@ -177,7 +179,7 @@ public class OrgDeptDaoImpl extends OrgCommon implements OrgDeptDao {
                 ps = connection.prepareStatement(insertSql);
                 try {
                     for (int i = 0; i < list.size(); i++) {
-                        List<OrgDept> deptList = queryByOtherDept(new OrgCommon().getOrgAccountId());
+                        List<OrgDept> deptList = queryByOtherDept(tools.getOrgAccountId());
                         if (null != deptList && deptList.size() > 0) {
                             List<OrgDept> handleList = TreeUtil.getRootList(deptList);
                             getList(handleList, client, ps);
@@ -299,7 +301,6 @@ public class OrgDeptDaoImpl extends OrgCommon implements OrgDeptDao {
 
     @Override
     public void updateOrgDept() {
-        OrgCommon orgCommon = new OrgCommon();
         String sql = "select mv.id,mv.code,v2.name,v2.uint,m2.id unitid,v2.IS_ENABLE  from   (select distinct m.id,v.code from V_ORG_UNIT v,M_ORG_UNIT m where m.code = v.code     and (nvl(v.name,'~') <> nvl(m.name,'~') or nvl(v.uint,'~') <> nvl(m.uint,'~') or v.IS_ENABLE ='0') ) mv    left join V_ORG_UNIT v2 on mv.code = v2.code   left join M_ORG_UNIT m2 on v2.uint = m2.code order by mv.code";
         CTPRestClient client = SyncConnectionUtil.getOaRest();
         Connection connection = null;
@@ -316,12 +317,12 @@ public class OrgDeptDaoImpl extends OrgCommon implements OrgDeptDao {
                 orgDept.setDeptid(res.getString("id"));
                 orgDept.setDeptcode(res.getString("code"));
                 orgDept.setDeptname(res.getString("name"));
-                orgDept.setOrgAccountId(orgCommon.getOrgAccountId());
+                orgDept.setOrgAccountId(tools.getOrgAccountId());
                 orgDept.setUnitcode(res.getString("uint") == null ? "" : res.getString("uint"));
                 if (!"".equals(res.getString("unitid")) && !"0".equals(res.getString("unitid"))) {
                     orgDept.setSuperior(res.getString("unitid"));
                 } else {
-                    orgDept.setSuperior(orgCommon.getOrgAccountId());
+                    orgDept.setSuperior(tools.getOrgAccountId());
                 }
                 String isEnable = res.getString("is_enable");
                 if (null != isEnable && !"".equals(isEnable)) {

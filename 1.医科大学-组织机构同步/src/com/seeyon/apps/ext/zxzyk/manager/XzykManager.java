@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
-public interface xzykManager {
+public interface XzykManager {
     List<Map<String, Object>> queryAll(String sql) throws SQLException;
 
 }
