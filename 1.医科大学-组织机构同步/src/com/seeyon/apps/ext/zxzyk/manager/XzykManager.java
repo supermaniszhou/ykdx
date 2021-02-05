@@ -7,4 +7,5 @@ import java.util.Map;
 public interface XzykManager {
     void insertAll() throws SQLException;
 
+    void clearTable();
 }

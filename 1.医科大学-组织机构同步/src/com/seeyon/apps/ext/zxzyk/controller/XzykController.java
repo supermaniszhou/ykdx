@@ -38,6 +38,7 @@ public class XzykController extends BaseController {
 
         Map<String, Object> map = new HashMap<>();
         try {
+            xzykManager.clearTable();
             xzykManager.insertAll();
             //部门
 //            orgDeptManager.insertOtherDept();

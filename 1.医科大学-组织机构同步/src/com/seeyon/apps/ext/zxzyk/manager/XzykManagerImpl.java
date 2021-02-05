@@ -22,5 +22,12 @@ public class XzykManagerImpl implements XzykManager {
         xzykDao.insertAll("V_ORG_UNIT", unitListMap);
     }
 
-
+    @Override
+    public void clearTable() {
+        xzykDao.clearData("delete from V_ORG_UNIT");
+        xzykDao.clearData("delete from V_ORG_PRINCVIPAL");
+        xzykDao.clearData("delete from V_JZG_PHONE");
+        xzykDao.clearData("delete from V_ORG_LEVEL");
+        xzykDao.clearData("delete from V_ORG_MEMBER");
+    }
 }

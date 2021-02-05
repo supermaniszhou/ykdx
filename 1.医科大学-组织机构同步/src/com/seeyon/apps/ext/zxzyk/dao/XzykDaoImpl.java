@@ -85,6 +85,11 @@ public class XzykDaoImpl implements XzykDao {
 
     @Override
     public void clearData(String sql) {
-
+        try (Connection connection = JDBCAgent.getRawConnection();
+             PreparedStatement ps = connection.prepareStatement(sql);) {
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
