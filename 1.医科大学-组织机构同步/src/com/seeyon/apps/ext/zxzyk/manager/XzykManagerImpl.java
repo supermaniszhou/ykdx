@@ -17,9 +17,25 @@ public class XzykManagerImpl implements XzykManager {
 
     @Override
     public void insertAll() throws SQLException {
-        String unitSql = "select * from USR_DATA.V_ORG_UNIT";
+        final String unitSql = "select * from USR_DATA.V_ORG_UNIT";
         List<Map<String, Object>> unitListMap = xzykDao.queryAll(unitSql);
         xzykDao.insertAll("V_ORG_UNIT", unitListMap);
+
+        final String prinSql = "select * from USR_DATA.V_ORG_PRINCVIPAL";
+        List<Map<String, Object>> prinListMap = xzykDao.queryAll(prinSql);
+        xzykDao.insertAll("V_ORG_PRINCVIPAL", prinListMap);
+
+        final String phoneSql = "select * from USR_DATA.V_JZG_PHONE";
+        List<Map<String, Object>> phoneListMap = xzykDao.queryAll(phoneSql);
+        xzykDao.insertAll("V_JZG_PHONE", phoneListMap);
+
+        final String memberSql = "select * from USR_DATA.V_ORG_MEMBER";
+        List<Map<String, Object>> memberListMap = xzykDao.queryAll(memberSql);
+        xzykDao.insertAll("V_ORG_MEMBER", memberListMap);
+
+        final String levelSql = "select * from USR_DATA.V_ORG_LEVEL";
+        List<Map<String, Object>> levelListMap = xzykDao.queryAll(levelSql);
+        xzykDao.insertAll("V_ORG_LEVEL", levelListMap);
     }
 
     @Override
