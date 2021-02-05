@@ -1,14 +1,14 @@
 package com.seeyon.apps.ext.zxzyk.dao;
 
 import com.seeyon.apps.ext.zxzyk.util.SyncConnectionUtil;
+import com.seeyon.ctp.util.JDBCAgent;
 
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 public class XzykDaoImpl implements XzykDao {
     @Override
@@ -26,11 +26,10 @@ public class XzykDaoImpl implements XzykDao {
                 String columnName = metaData.getColumnName(i);
                 String value = rs.getString(i);
                 if (null == value && "".equals(value)) {
-                    map.put("columnName", "");
+                    map.put(columnName, "");
                 } else {
-                    map.put("columnName", value);
+                    map.put(columnName, value);
                 }
-                System.out.println(columnName + "==" + value);
             }
             mapList.add(map);
         }
@@ -38,8 +37,50 @@ public class XzykDaoImpl implements XzykDao {
     }
 
     @Override
-    public void insertAll(String sql, List<Map<String, Object>> mapList) {
-
+    public void insertAll(String tableName, List<Map<String, Object>> mapList) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("insert into " + tableName + "(");
+        Map<String, Object> col = mapList.get(0);
+        int count = 0;
+        StringBuilder valCol = new StringBuilder();
+        valCol.append("(");
+        for (Map.Entry<String, Object> entry : col.entrySet()) {
+            sb.append(entry.getKey());
+            valCol.append("?");
+            if (count != (col.size() - 1)) {
+                sb.append(",");
+                valCol.append(",");
+            }
+            count++;
+        }
+        sb.append(") values ");
+        sb.append(valCol.toString() + ")");
+        System.out.println(sb.toString());
+        try (Connection connection = JDBCAgent.getRawConnection();
+             PreparedStatement ps = connection.prepareStatement(sb.toString());) {
+            connection.setAutoCommit(false);
+            Stream.iterate(0, i -> i + 1).limit(mapList.size()).forEach(i -> {
+                Map<String, Object> m = mapList.get(i);
+                int index = 1;
+                for (Map.Entry<String, Object> entry : m.entrySet()) {
+                    try {
+                        ps.setString(index, entry.getValue() + "");
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                    index++;
+                }
+                try {
+                    ps.addBatch();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            });
+            ps.executeUpdate();
+            connection.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

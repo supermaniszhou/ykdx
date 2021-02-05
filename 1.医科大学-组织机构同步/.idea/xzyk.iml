@@ -24,5 +24,6 @@
         <jarDirectory url="file://F:/Seeyon/A871sp1_qiye/ApacheJetspeed/webapps/seeyon/WEB-INF/lib" recursive="false" type="SOURCES" />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="lib" level="project" />
   </component>
 </module>

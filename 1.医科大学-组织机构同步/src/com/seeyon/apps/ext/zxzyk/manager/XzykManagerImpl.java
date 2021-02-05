@@ -13,11 +13,13 @@ import java.util.Map;
 public class XzykManagerImpl implements XzykManager {
     private static final Log log = LogFactory.getLog(XzykManagerImpl.class);
 
-    private XzykDao demoDao = new XzykDaoImpl();
+    private XzykDao xzykDao = new XzykDaoImpl();
 
     @Override
-    public List<Map<String, Object>> queryAll(String sql) throws SQLException {
-        return demoDao.queryAll(sql);
+    public void insertAll() throws SQLException {
+        String unitSql = "select * from USR_DATA.V_ORG_UNIT";
+        List<Map<String, Object>> unitListMap = xzykDao.queryAll(unitSql);
+        xzykDao.insertAll("V_ORG_UNIT", unitListMap);
     }
 
 

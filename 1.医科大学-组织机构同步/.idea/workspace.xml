@@ -2,22 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="816d8994-cada-4cd0-be87-e236d8acd877" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/seeyon/WEB-INF/cfgHome/plugin/zxzyk/spring/spring-zxzyk-controller.xml" beforeDir="false" afterPath="$PROJECT_DIR$/seeyon/WEB-INF/cfgHome/plugin/zxzyk/spring/spring-zxzyk-controller.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/seeyon/WEB-INF/cfgHome/plugin/zxzyk/spring/spring-zxzyk-dao.xml" beforeDir="false" afterPath="$PROJECT_DIR$/seeyon/WEB-INF/cfgHome/plugin/zxzyk/spring/spring-zxzyk-dao.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/seeyon/WEB-INF/cfgHome/plugin/zxzyk/spring/spring-zxzyk-manager.xml" beforeDir="false" afterPath="$PROJECT_DIR$/seeyon/WEB-INF/cfgHome/plugin/zxzyk/spring/spring-zxzyk-manager.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/seeyon/WEB-INF/cfgHome/plugin/zxzyk/spring/spring-zxzyk-sso.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/controller/xzykController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/controller/XzykController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/dao/OrgCommon.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/dao/OrgDeptDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/dao/OrgDeptDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/dao/OrgLevelDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/dao/OrgLevelDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/dao/OrgMemberDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/dao/OrgMemberDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/dao/xzykDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/dao/XzykDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/dao/xzykDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/dao/XzykDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/manager/OrgDeptManagerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/manager/OrgDeptManagerImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/manager/xzykManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/manager/XzykManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/manager/xzykManagerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/manager/XzykManagerImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/quartz/SyncDeptTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/quartz/SyncDeptTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/xzyk.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/xzyk.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/controller/XzykController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/controller/XzykController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/dao/XzykDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/dao/XzykDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/manager/XzykManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/manager/XzykManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/manager/XzykManagerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/manager/XzykManagerImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/util/ReadConfigTools.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/util/ReadConfigTools.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -82,7 +73,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="F:/Seeyon/A871sp1_qiye/ApacheJetspeed/webapps/seeyon" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -92,18 +83,18 @@
     <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/seeyon/WEB-INF/cfgHome/metadata/menu-AccountAdmin-Enterprise-2.xml" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\javaTool\code\xzyk\src\com\seeyon\ctp\common\web\filter" />
-      <recent name="D:\javaTool\code\xzyk\seeyon\WEB-INF\jsp\apps\ext\zxzyk" />
-      <recent name="D:\javaTool\code\xzyk\seeyon\WEB-INF\cfgHome\metadata" />
-      <recent name="D:\javaTool\code\xzyk" />
-      <recent name="D:\javaTool\code\xzyk\seeyon" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\javaTool\code\xzyk\seeyon\WEB-INF" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.seeyon.apps.ext.xzyk.util" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\javaTool\code\xzyk\seeyon\WEB-INF" />
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\0.项目代码\5.医科大学\ykdx\1.医科大学-组织机构同步\seeyon\WEB-INF\lib" />
+      <recent name="D:\javaTool\code\xzyk\src\com\seeyon\ctp\common\web\filter" />
+      <recent name="D:\javaTool\code\xzyk\seeyon\WEB-INF\jsp\apps\ext\zxzyk" />
+      <recent name="D:\javaTool\code\xzyk\seeyon\WEB-INF\cfgHome\metadata" />
+      <recent name="D:\javaTool\code\xzyk" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -327,12 +318,12 @@
           <expand>
             <path>
               <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@6f16ffc5" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@845ac39b" type="7427dc5b:ServiceModel$ServiceGroupNode" />
             </path>
             <path>
               <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@6f16ffc5" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@61891fe4" type="9fbbdea:ServiceModel$ServiceNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@845ac39b" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@7d258108" type="9fbbdea:ServiceModel$ServiceNode" />
             </path>
           </expand>
           <select />
@@ -395,7 +386,8 @@
       <workItem from="1612168996823" duration="4949000" />
       <workItem from="1612225946912" duration="4717000" />
       <workItem from="1612259155602" duration="1198000" />
-      <workItem from="1612312914503" duration="9912000" />
+      <workItem from="1612312914503" duration="13170000" />
+      <workItem from="1612506526785" duration="5115000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <created>1612172464071</created>
@@ -446,7 +438,28 @@
       <option name="project" value="LOCAL" />
       <updated>1612318893636</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="update">
+      <created>1612323227491</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1612323227491</updated>
+    </task>
+    <task id="LOCAL-00009" summary="update">
+      <created>1612324487532</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1612324487532</updated>
+    </task>
+    <task id="LOCAL-00010" summary="update">
+      <created>1612508267975</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1612508267975</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -500,19 +513,14 @@
           <option name="timeStamp" value="137" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/manager/XzykManagerImpl.java</url>
-          <line>19</line>
-          <option name="timeStamp" value="140" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/controller/XzykController.java</url>
-          <line>38</line>
-          <option name="timeStamp" value="141" />
+          <url>file://$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/dao/XzykDaoImpl.java</url>
+          <line>18</line>
+          <option name="timeStamp" value="144" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/dao/XzykDaoImpl.java</url>
-          <line>14</line>
-          <option name="timeStamp" value="142" />
+          <line>57</line>
+          <option name="timeStamp" value="145" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

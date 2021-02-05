@@ -30,8 +30,9 @@ public class ReadConfigTools {
         File file = new File(path);
         InputStream inputStream = null;
         try {
+            properties = new Properties();
             inputStream = new FileInputStream(file);
-            this.properties.load(new InputStreamReader(inputStream, "UTF-8"));
+            properties.load(new InputStreamReader(inputStream, "UTF-8"));
 
             this.orgAccountId = properties.getProperty("xzyk.orgAccountId");
             this.orgPostId = properties.getProperty("xzyk.orgPostId");

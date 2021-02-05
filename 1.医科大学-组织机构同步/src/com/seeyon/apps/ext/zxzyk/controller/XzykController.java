@@ -38,8 +38,7 @@ public class XzykController extends BaseController {
 
         Map<String, Object> map = new HashMap<>();
         try {
-            String sql = "select * from USR_DATA.V_ORG_UNIT";
-            xzykManager.queryAll(sql);
+            xzykManager.insertAll();
             //部门
 //            orgDeptManager.insertOtherDept();
 //            orgDeptManager.updateOrgDept();
