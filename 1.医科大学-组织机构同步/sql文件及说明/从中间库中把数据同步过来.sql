@@ -1,6 +1,6 @@
 --部门表
 create table v_org_unit(
-    ID VARCHAR2(50) primary key ,
+    ID VARCHAR2(50)  ,
     NAME VARCHAR2(50) ,
     SECOND_NAME VARCHAR2(50) ,
     CODE VARCHAR2(50) ,
@@ -15,7 +15,7 @@ create table v_org_unit(
 );
 --用户登陆信息表
 create table v_org_principal(
-    ID  VARCHAR2(50) primary key,
+    ID  VARCHAR2(50) ,
     LOGIN_NAME VARCHAR2(50),
     CREDENTIAL_VALUE VARCHAR2(50),
     CLASS_NAME VARCHAR2(50),
@@ -28,7 +28,7 @@ create table v_org_principal(
 
 --用户表信息
 create table V_ORG_MEMBER(
-    ID VARCHAR2(50) primary key,
+    ID VARCHAR2(50) ,
     NAME VARCHAR2(50) ,
     CODE VARCHAR2(50) ,
     IS_INTERNAL VARCHAR2(50) ,
@@ -54,7 +54,7 @@ create table V_ORG_MEMBER(
 
 --职级表
 CREATE TABLE v_org_level (
-	ID VARCHAR2 (50) PRIMARY KEY,
+	ID VARCHAR2 (50) ,
 	NAME VARCHAR2 (50),
 	CODE VARCHAR2 (50),
 	IS_ENABLE VARCHAR2 (50),
@@ -70,7 +70,7 @@ CREATE TABLE v_org_level (
 );
 --用户电话表
 CREATE TABLE v_jzg_phone (
-	GH VARCHAR2 (50) PRIMARY KEY,
+	GH VARCHAR2 (50) ,
 	XM VARCHAR2 (50),
 	MOBILE VARCHAR2 (50)
 );

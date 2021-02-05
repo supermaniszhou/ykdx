@@ -4,10 +4,7 @@ import com.seeyon.apps.ext.zxzyk.util.SyncConnectionUtil;
 import com.seeyon.ctp.util.JDBCAgent;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Stream;
 
 public class XzykDaoImpl implements XzykDao {
@@ -21,7 +18,7 @@ public class XzykDaoImpl implements XzykDao {
         while (rs.next()) {
             ResultSetMetaData metaData = rs.getMetaData();
             int count = metaData.getColumnCount();
-            map = new HashMap<>();
+            map = new LinkedHashMap<>();
             for (int i = 1; i <= count; i++) {
                 String columnName = metaData.getColumnName(i);
                 String value = rs.getString(i);
@@ -37,7 +34,7 @@ public class XzykDaoImpl implements XzykDao {
     }
 
     @Override
-    public void insertAll(String tableName, List<Map<String, Object>> mapList) {
+    public void insertAll(String tableName, List<Map<String, Object>> mapList) throws SQLException {
         StringBuilder sb = new StringBuilder();
         sb.append("insert into " + tableName + "(");
         Map<String, Object> col = mapList.get(0);
@@ -56,30 +53,41 @@ public class XzykDaoImpl implements XzykDao {
         sb.append(") values ");
         sb.append(valCol.toString() + ")");
         System.out.println(sb.toString());
-        try (Connection connection = JDBCAgent.getRawConnection();
-             PreparedStatement ps = connection.prepareStatement(sb.toString());) {
+        Connection connection = null;
+        PreparedStatement ps = null;
+        try {
+            connection = JDBCAgent.getRawConnection();
             connection.setAutoCommit(false);
+            ps = connection.prepareStatement(sb.toString());
+            PreparedStatement finalPs = ps;
             Stream.iterate(0, i -> i + 1).limit(mapList.size()).forEach(i -> {
                 Map<String, Object> m = mapList.get(i);
                 int index = 1;
                 for (Map.Entry<String, Object> entry : m.entrySet()) {
                     try {
-                        ps.setString(index, entry.getValue() + "");
+                        finalPs.setString(index, entry.getValue() + "");
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
                     index++;
                 }
                 try {
-                    ps.addBatch();
+                    finalPs.addBatch();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
             });
-            ps.executeUpdate();
+            ps.executeBatch();
             connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            if (null != ps) {
+                ps.close();
+            }
+            if (null != connection) {
+                connection.close();
+            }
         }
     }
 

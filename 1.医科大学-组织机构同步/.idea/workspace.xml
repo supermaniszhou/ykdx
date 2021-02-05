@@ -3,10 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="816d8994-cada-4cd0-be87-e236d8acd877" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/controller/XzykController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/controller/XzykController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sql文件及说明/从中间库中把数据同步过来.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sql文件及说明/从中间库中把数据同步过来.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/dao/XzykDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/dao/XzykDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/dao/XzykDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/dao/XzykDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/manager/XzykManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/manager/XzykManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/manager/XzykManagerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/manager/XzykManagerImpl.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -70,7 +69,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="F:/a8_code/A-8-code/矿业大学_组织机构同步" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -384,7 +383,7 @@
       <workItem from="1612225946912" duration="4717000" />
       <workItem from="1612259155602" duration="1198000" />
       <workItem from="1612312914503" duration="13170000" />
-      <workItem from="1612506526785" duration="5767000" />
+      <workItem from="1612506526785" duration="9200000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <created>1612172464071</created>
@@ -463,7 +462,14 @@
       <option name="project" value="LOCAL" />
       <updated>1612511859990</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="update">
+      <created>1612512513914</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1612512513914</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -518,13 +524,23 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/dao/XzykDaoImpl.java</url>
-          <line>18</line>
+          <line>15</line>
           <option name="timeStamp" value="144" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/dao/XzykDaoImpl.java</url>
-          <line>57</line>
+          <line>54</line>
           <option name="timeStamp" value="145" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/dao/XzykDaoImpl.java</url>
+          <line>37</line>
+          <option name="timeStamp" value="147" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/dao/XzykDaoImpl.java</url>
+          <line>52</line>
+          <option name="timeStamp" value="148" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

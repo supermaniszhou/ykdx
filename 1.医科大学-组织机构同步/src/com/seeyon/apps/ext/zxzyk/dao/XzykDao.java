@@ -8,7 +8,7 @@ public interface XzykDao {
 
     List<Map<String, Object>> queryAll(String sql) throws SQLException;
 
-    void insertAll(String sql, List<Map<String, Object>> mapList);
+    void insertAll(String sql, List<Map<String, Object>> mapList) throws SQLException;
 
     void clearData(String sql);
 }
