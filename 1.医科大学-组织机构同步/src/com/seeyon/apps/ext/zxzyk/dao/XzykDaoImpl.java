@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,10 +16,23 @@ public class XzykDaoImpl implements XzykDao {
         List<Map<String, Object>> mapList = new ArrayList<>();
 
         ResultSet rs = SyncConnectionUtil.getResultSet(sql);
+        Map<String, Object> map = null;
+
         while (rs.next()) {
             ResultSetMetaData metaData = rs.getMetaData();
             int count = metaData.getColumnCount();
-            System.out.println(count);
+            map = new HashMap<>();
+            for (int i = 1; i <= count; i++) {
+                String columnName = metaData.getColumnName(i);
+                String value = rs.getString(i);
+                if (null == value && "".equals(value)) {
+                    map.put("columnName", "");
+                } else {
+                    map.put("columnName", value);
+                }
+                System.out.println(columnName + "==" + value);
+            }
+            mapList.add(map);
         }
         return mapList;
     }
