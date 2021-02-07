@@ -23,7 +23,7 @@ public class XzykManagerImpl implements XzykManager {
 
         final String prinSql = "select * from USR_DATA.V_ORG_PRINCVIPAL";
         List<Map<String, Object>> prinListMap = xzykDao.queryAll(prinSql);
-        xzykDao.insertAll("V_ORG_PRINCVIPAL", prinListMap);
+        xzykDao.insertAll("V_ORG_PRINCIPAL", prinListMap);
 
         final String phoneSql = "select * from USR_DATA.V_JZG_PHONE";
         List<Map<String, Object>> phoneListMap = xzykDao.queryAll(phoneSql);
