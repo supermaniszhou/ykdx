@@ -19,10 +19,11 @@ public class OrgDeptManagerImpl implements OrgDeptManager {
 
     @Override
     public void insertOtherDept() throws SQLException {
-        List<OrgDept> firstDeptlist = orgDeptDao.queryByFirstDept();
-        orgDeptDao.insertFirstDept(firstDeptlist);
-//        List<OrgDept> list = orgDeptDao.queryByOtherDept(configTools.getOrgAccountId());
-//        orgDeptDao.insertOrgDept_new(list);
+//        List<OrgDept> firstDeptlist = orgDeptDao.queryByFirstDept();
+//        orgDeptDao.insertFirstDept(firstDeptlist);
+
+        List<OrgDept> list = orgDeptDao.queryByOtherDept(configTools.getOrgAccountId());
+        orgDeptDao.insertOrgDept_new(list);
     }
 
     @Override

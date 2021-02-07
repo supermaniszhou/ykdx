@@ -69,7 +69,7 @@ public class OrgDeptDaoImpl implements OrgDeptDao {
     public List<OrgDept> queryByOtherDept(String accountId) throws SQLException {
 
         List<OrgDept> firstDeptList = new ArrayList<>();
-        String sql = "select v.code,v.name,(select m.id from M_ORG_UNIT m where m.code = v.uint) parent,v.uint,,v.is_enable,v.is_deleted from (select * from V_ORG_UNIT where IS_DELETED <> '1') v  where v.uint is not null and v.uint not in('0')  and not exists(select 1 from M_ORG_UNIT m where m.code = v.code)";
+        String sql = "select v.code,v.name,(select m.id from M_ORG_UNIT m where m.code = v.uint) parent,v.uint,v.is_enable,v.is_deleted from (select * from V_ORG_UNIT where IS_DELETED <> '1') v  where v.uint is not null and v.uint not in('0')  and not exists(select 1 from M_ORG_UNIT m where m.code = v.code)";
         Connection connection =  JDBCAgent.getRawConnection();
         PreparedStatement prep = null;
         ResultSet res = null;
