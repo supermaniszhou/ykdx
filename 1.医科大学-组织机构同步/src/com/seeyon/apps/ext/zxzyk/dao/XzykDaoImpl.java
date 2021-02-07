@@ -21,7 +21,7 @@ public class XzykDaoImpl implements XzykDao {
             map = new LinkedHashMap<>();
             for (int i = 1; i <= count; i++) {
                 String columnName = metaData.getColumnName(i);
-                String value = rs.getString(i);
+                String value = null == rs.getString(i) ? "" : rs.getString(i);
                 if (null == value && "".equals(value)) {
                     map.put(columnName, "");
                 } else {
