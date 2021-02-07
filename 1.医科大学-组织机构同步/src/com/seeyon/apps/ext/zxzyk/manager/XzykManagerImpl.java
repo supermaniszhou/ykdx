@@ -41,7 +41,7 @@ public class XzykManagerImpl implements XzykManager {
     @Override
     public void clearTable() {
         xzykDao.clearData("delete from V_ORG_UNIT");
-        xzykDao.clearData("delete from V_ORG_PRINCVIPAL");
+        xzykDao.clearData("delete from V_ORG_PRINCIPAL");
         xzykDao.clearData("delete from V_JZG_PHONE");
         xzykDao.clearData("delete from V_ORG_LEVEL");
         xzykDao.clearData("delete from V_ORG_MEMBER");
