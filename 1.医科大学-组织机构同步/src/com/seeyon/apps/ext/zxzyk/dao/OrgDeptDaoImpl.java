@@ -32,7 +32,7 @@ public class OrgDeptDaoImpl implements OrgDeptDao {
     public List<OrgDept> queryByFirstDept() throws SQLException {
 
         List<OrgDept> firstDeptList = new ArrayList<>();
-        String sql = "select v.code,v.name,(select m.id from M_ORG_UNIT m where m.code = v.uint) parent,v.uint from (select * from V_ORG_UNIT where IS_DELETED <> '1') v  where v.uint is not null and v.uint in('0') and not exists(select 1 from M_ORG_UNIT m where m.code = v.code) ";
+        String sql = "select v.code,v.name,(select m.id from M_ORG_UNIT m where m.code = v.uint) parent,v.uint from (select * from V_ORG_UNIT where IS_DELETED <> '1' and is_enable='1' and code <> '0') v  where v.uint is not null and v.uint in('0') and not exists(select 1 from M_ORG_UNIT m where m.code = v.code) ";
         Connection connection =  JDBCAgent.getRawConnection();
         PreparedStatement prep = null;
         ResultSet res = null;
