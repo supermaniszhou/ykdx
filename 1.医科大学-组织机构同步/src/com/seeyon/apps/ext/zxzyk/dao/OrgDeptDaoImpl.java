@@ -77,12 +77,14 @@ public class OrgDeptDaoImpl implements OrgDeptDao {
             String superior = tools.getOrgAccountId();
             while (res.next()) {
                 orgDept = new OrgDept();
-                orgDept.setDeptcode(res.getString("code"));
-                orgDept.setDeptname(res.getString("name"));
-                orgDept.setOrgAccountId(superior);
-                orgDept.setSuperior(res.getString("uint"));
-                orgDept.setParentId(res.getString("parent"));
-                firstDeptList.add(orgDept);
+                if(!(res.getString("code")).contains("999")){
+                    orgDept.setDeptcode(res.getString("code"));
+                    orgDept.setDeptname(res.getString("name"));
+                    orgDept.setOrgAccountId(superior);
+                    orgDept.setSuperior(res.getString("uint"));
+                    orgDept.setParentId(res.getString("parent"));
+                    firstDeptList.add(orgDept);
+                }
             }
         } catch (Exception e) {
             System.out.println("非一级部门新增查询异常：" + e.getMessage());
