@@ -43,6 +43,7 @@ public class XzykDaoImpl implements XzykDao {
         valCol.append("(");
         for (Map.Entry<String, Object> entry : col.entrySet()) {
             sb.append(entry.getKey());
+            System.out.println("key:" + entry.getKey());
             valCol.append("?");
             if (count != (col.size() - 1)) {
                 sb.append(",");
