@@ -6,6 +6,7 @@ import com.seeyon.apps.ext.zxzyk.util.ReadConfigTools;
 import com.seeyon.apps.ext.zxzyk.util.SyncConnectionUtil;
 import com.seeyon.apps.ext.zxzyk.util.TreeUtil;
 import com.seeyon.client.CTPRestClient;
+import com.seeyon.ctp.util.JDBCAgent;
 import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,11 +29,11 @@ public class OrgDeptDaoImpl implements OrgDeptDao {
     private ReadConfigTools tools = new ReadConfigTools();
 
     @Override
-    public List<OrgDept> queryByFirstDept() {
+    public List<OrgDept> queryByFirstDept() throws SQLException {
 
         List<OrgDept> firstDeptList = new ArrayList<>();
         String sql = "select v.code,v.name,(select m.id from M_ORG_UNIT m where m.code = v.uint) parent,v.uint from (select * from V_ORG_UNIT where IS_DELETED <> '1') v  where v.uint is not null and v.uint in('0') and not exists(select 1 from M_ORG_UNIT m where m.code = v.code) ";
-        Connection connection = SyncConnectionUtil.getMidConnection();
+        Connection connection =  JDBCAgent.getRawConnection();
         PreparedStatement prep = null;
         ResultSet res = null;
         try {
@@ -61,11 +63,11 @@ public class OrgDeptDaoImpl implements OrgDeptDao {
     }
 
     @Override
-    public List<OrgDept> queryByOtherDept(String accountId) {
+    public List<OrgDept> queryByOtherDept(String accountId) throws SQLException {
 
         List<OrgDept> firstDeptList = new ArrayList<>();
-        String sql = "select v.code,v.name,(select m.id from M_ORG_UNIT m where m.code = v.uint) parent,v.uint from (select * from V_ORG_UNIT where IS_DELETED <> '1') v  where v.uint is not null and v.uint not in('0')  and not exists(select 1 from M_ORG_UNIT m where m.code = v.code)";
-        Connection connection = SyncConnectionUtil.getMidConnection();
+        String sql = "select v.code,v.name,(select m.id from M_ORG_UNIT m where m.code = v.uint) parent,v.uint,,v.is_enable,v.is_deleted from (select * from V_ORG_UNIT where IS_DELETED <> '1') v  where v.uint is not null and v.uint not in('0')  and not exists(select 1 from M_ORG_UNIT m where m.code = v.code)";
+        Connection connection =  JDBCAgent.getRawConnection();
         PreparedStatement prep = null;
         ResultSet res = null;
         try {
@@ -99,10 +101,10 @@ public class OrgDeptDaoImpl implements OrgDeptDao {
         CTPRestClient client = SyncConnectionUtil.getOaRest();
         Connection connection = null;
         PreparedStatement ps = null;
-        String insertSql = "insert into M_ORG_UNIT(id,code,name,uint,sort_id) values (?,?,?,?,?)";
+        String insertSql = "insert into M_ORG_UNIT(id,code,name,uint,sort_id,is_enable,is_deleted) values (?,?,?,?,?,?,?)";
         try {
             if (null != list && list.size() > 0) {
-                connection = SyncConnectionUtil.getMidConnection();
+                connection = JDBCAgent.getRawConnection();
                 connection.setAutoCommit(false);
                 ps = connection.prepareStatement(insertSql);
                 for (OrgDept dept : list) {
@@ -136,6 +138,8 @@ public class OrgDeptDaoImpl implements OrgDeptDao {
                                 ps.setString(4, flag ? dept.getSuperior() : "");
                                 String sortId = ent.getString("sortId");
                                 ps.setString(5, sortId != null && !sortId.equals("") ? sortId : "");
+                                ps.setString(6, "1");
+                                ps.setString(7, "0");
                                 ps.addBatch();
                             }
                         }
@@ -149,6 +153,8 @@ public class OrgDeptDaoImpl implements OrgDeptDao {
                         boolean flag = dept.getSuperior() != null && !"".equals(dept.getSuperior()) && !dept.getSuperior().equals(dept.getOrgAccountId());
                         ps.setString(4, dept.getSuperior());
                         ps.setString(5, "");
+                        ps.setString(6, "1");
+                        ps.setString(7, "0");
                         ps.addBatch();
                         ps.executeBatch();
                         connection.commit();//执行
@@ -175,7 +181,7 @@ public class OrgDeptDaoImpl implements OrgDeptDao {
         String insertSql = "insert into M_ORG_UNIT(id,code,name,uint,sort_id) values (?,?,?,?,?)";
         try {
             if (null != list && list.size() > 0) {
-                connection = SyncConnectionUtil.getMidConnection();
+                connection =  JDBCAgent.getRawConnection();
                 ps = connection.prepareStatement(insertSql);
                 try {
                     for (int i = 0; i < list.size(); i++) {
@@ -256,7 +262,7 @@ public class OrgDeptDaoImpl implements OrgDeptDao {
         StringBuffer sb = new StringBuffer();
         sb.append("delete from M_ORG_UNIT where id in (0");
         try {
-            connection = SyncConnectionUtil.getMidConnection();
+            connection =  JDBCAgent.getRawConnection();
             //获取需要删除的部门
             String qSql = "select m.* from M_ORG_UNIT m where 1=1 and  not exists (select 1 from V_ORG_UNIT v where v.code=m.code)";
             ps = connection.prepareStatement(qSql);
@@ -307,7 +313,7 @@ public class OrgDeptDaoImpl implements OrgDeptDao {
         PreparedStatement ps = null;
         ResultSet res = null;
         try {
-            connection = SyncConnectionUtil.getMidConnection();
+            connection =  JDBCAgent.getRawConnection();
             ps = connection.prepareStatement(sql);
             res = ps.executeQuery();
             List<OrgDept> deptList = new ArrayList<>();

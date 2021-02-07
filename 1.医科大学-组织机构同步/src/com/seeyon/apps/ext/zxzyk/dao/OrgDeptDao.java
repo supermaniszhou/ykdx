@@ -2,6 +2,7 @@ package com.seeyon.apps.ext.zxzyk.dao;
 
 import com.seeyon.apps.ext.zxzyk.po.OrgDept;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -10,11 +11,11 @@ import java.util.List;
 public interface OrgDeptDao {
 
 
-    List<OrgDept> queryByFirstDept();
+    List<OrgDept> queryByFirstDept() throws SQLException;
     /**
      * 获取第三方系统其他部门
      */
-    List<OrgDept> queryByOtherDept(String accountId);
+    List<OrgDept> queryByOtherDept(String accountId) throws SQLException;
 
 //    void insertOrgDept(List<OrgDept> list);
 
