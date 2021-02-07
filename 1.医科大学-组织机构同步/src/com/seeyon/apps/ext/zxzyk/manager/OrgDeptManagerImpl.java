@@ -5,6 +5,7 @@ import com.seeyon.apps.ext.zxzyk.dao.OrgDeptDaoImpl;
 import com.seeyon.apps.ext.zxzyk.po.OrgDept;
 import com.seeyon.apps.ext.zxzyk.util.ReadConfigTools;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -17,7 +18,7 @@ public class OrgDeptManagerImpl implements OrgDeptManager {
     private ReadConfigTools configTools = new ReadConfigTools();
 
     @Override
-    public void insertOtherDept() {
+    public void insertOtherDept() throws SQLException {
         List<OrgDept> firstDeptlist = orgDeptDao.queryByFirstDept();
         orgDeptDao.insertFirstDept(firstDeptlist);
         List<OrgDept> list = orgDeptDao.queryByOtherDept(configTools.getOrgAccountId());

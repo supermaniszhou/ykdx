@@ -4,6 +4,8 @@ import com.seeyon.apps.ext.zxzyk.manager.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.sql.SQLException;
+
 /**
  * Created by Administrator on 2019-7-29.
  */
@@ -23,22 +25,27 @@ public class SyncDeptTask implements Runnable {
     public void run() {
         logger.info("==============================同步组织信息执行了吗？======================================");
 
-        orgDeptManager.insertOtherDept();
-        orgDeptManager.updateOrgDept();
-        //职级
-        orgLevelManager.insertOrgLevel();
-        orgLevelManager.updateOrgLevel();
+        try {
+            orgDeptManager.insertOtherDept();
 
-        //人员
-        orgMemberManager.insertOrgMember();
-        orgMemberManager.updateOrgMember();
+            orgDeptManager.updateOrgDept();
+            //职级
+            orgLevelManager.insertOrgLevel();
+            orgLevelManager.updateOrgLevel();
 
-        //跟新人员启用状态
-        orgMemberManager.updateEnableOrgmember();
+            //人员
+            orgMemberManager.insertOrgMember();
+            orgMemberManager.updateOrgMember();
 
-        orgMemberManager.deleteOrgMember();
-        orgDeptManager.deleteOrgDept();
-        orgLevelManager.deleteNotExistLevel();
+            //跟新人员启用状态
+            orgMemberManager.updateEnableOrgmember();
+
+            orgMemberManager.deleteOrgMember();
+            orgDeptManager.deleteOrgDept();
+            orgLevelManager.deleteNotExistLevel();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public OrgDeptManager getOrgDeptManager() {
