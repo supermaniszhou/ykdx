@@ -3,9 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="816d8994-cada-4cd0-be87-e236d8acd877" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/controller/XzykController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/controller/XzykController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/dao/OrgDeptDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/dao/OrgDeptDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/manager/XzykManagerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/manager/XzykManagerImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/manager/OrgLevelManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/manager/OrgLevelManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/manager/OrgLevelManagerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/manager/OrgLevelManagerImpl.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -384,7 +383,7 @@
       <workItem from="1612259155602" duration="1198000" />
       <workItem from="1612312914503" duration="13170000" />
       <workItem from="1612506526785" duration="10084000" />
-      <workItem from="1612660456900" duration="19604000" />
+      <workItem from="1612660456900" duration="25949000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <created>1612172464071</created>
@@ -568,7 +567,49 @@
       <option name="project" value="LOCAL" />
       <updated>1612691093610</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="update">
+      <created>1612746388872</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1612746388872</updated>
+    </task>
+    <task id="LOCAL-00028" summary="update">
+      <created>1612747809803</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1612747809803</updated>
+    </task>
+    <task id="LOCAL-00029" summary="update">
+      <created>1612750349144</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1612750349144</updated>
+    </task>
+    <task id="LOCAL-00030" summary="update">
+      <created>1612750690433</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1612750690433</updated>
+    </task>
+    <task id="LOCAL-00031" summary="update">
+      <created>1612751024704</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1612751024704</updated>
+    </task>
+    <task id="LOCAL-00032" summary="update">
+      <created>1612751611596</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1612751611596</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -642,34 +683,24 @@
           <option name="timeStamp" value="148" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/manager/XzykManagerImpl.java</url>
-          <line>19</line>
-          <option name="timeStamp" value="149" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/dao/XzykDaoImpl.java</url>
           <line>78</line>
           <option name="timeStamp" value="152" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/dao/OrgDeptDaoImpl.java</url>
-          <line>262</line>
-          <option name="timeStamp" value="157" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/manager/OrgDeptManagerImpl.java</url>
+          <url>file://$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/dao/OrgLevelDaoImpl.java</url>
           <line>24</line>
-          <option name="timeStamp" value="161" />
+          <option name="timeStamp" value="172" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/dao/OrgDeptDaoImpl.java</url>
-          <line>182</line>
-          <option name="timeStamp" value="162" />
+          <url>file://$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/dao/OrgLevelDaoImpl.java</url>
+          <line>48</line>
+          <option name="timeStamp" value="173" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/dao/OrgDeptDaoImpl.java</url>
-          <line>314</line>
-          <option name="timeStamp" value="163" />
+          <url>file://$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/dao/OrgLevelDaoImpl.java</url>
+          <line>53</line>
+          <option name="timeStamp" value="174" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
