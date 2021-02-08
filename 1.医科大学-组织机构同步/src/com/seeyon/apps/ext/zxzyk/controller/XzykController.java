@@ -45,11 +45,11 @@ public class XzykController extends BaseController {
 //            orgDeptManager.updateOrgDept();
 //
 //            //职级
-            orgLevelManager.insertOrgLevel();
-            orgLevelManager.updateOrgLevel();
+//            orgLevelManager.insertOrgLevel();
+//            orgLevelManager.updateOrgLevel();
 //
 //            //人员
-//            orgMemberManager.insertOrgMember();
+            orgMemberManager.insertOrgMember();
 //            orgMemberManager.updateOrgMember();
 
             //跟新人员启用状态
@@ -57,7 +57,7 @@ public class XzykController extends BaseController {
 
 //            orgDeptManager.deleteOrgDept();
 //            orgMemberManager.deleteOrgMember();
-            orgLevelManager.deleteNotExistLevel();
+//            orgLevelManager.deleteNotExistLevel();
             map.put("code", 0);
             map.put("msg", "success");
         } catch (Exception e) {

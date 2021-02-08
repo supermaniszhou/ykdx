@@ -6,11 +6,13 @@ import com.seeyon.apps.ext.zxzyk.util.ReadConfigTools;
 import com.seeyon.apps.ext.zxzyk.util.SyncConnectionUtil;
 import com.seeyon.client.CTPRestClient;
 import com.seeyon.ctp.util.DBAgent;
+import com.seeyon.ctp.util.JDBCAgent;
 import net.sf.json.JSONObject;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.*;
 
 public class OrgMemberDaoImpl implements OrgMemberDao {
@@ -18,10 +20,10 @@ public class OrgMemberDaoImpl implements OrgMemberDao {
     private ReadConfigTools configTools=new ReadConfigTools();
 
     @Override
-    public List<OrgMember> queryNoEnableMember() {
+    public List<OrgMember> queryNoEnableMember() throws SQLException {
         String sql = "select mm.org_department_id,mm.org_post_id,mm.org_level_id,MM.id,mm.code,vm.is_enable,VM.name from V_ORG_MEMBER vm, M_ORG_MEMBER mm where VM.CODE=MM.code ";
         List<OrgMember> memberList = new ArrayList<>();
-        Connection connection = SyncConnectionUtil.getMidConnection();
+        Connection connection = JDBCAgent.getRawConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
@@ -96,7 +98,7 @@ public class OrgMemberDaoImpl implements OrgMemberDao {
     }
 
     @Override
-    public List<OrgMember> queryAddOrgMember() {
+    public List<OrgMember> queryAddOrgMember() throws SQLException {
         //正式
         String sql = "select DISTINCT C2.is_enable,c2.code,c2.name,c2.id,c2.POSTID,c2.description,c2.mobile,M_ORG_UNIT.id unitId,M_ORG_LEVEL.id levelId ,c2.\"ou\" ou from " +
                 "(select memb.*,M_ORG_POST.id postid from (" +
@@ -110,7 +112,7 @@ public class OrgMemberDaoImpl implements OrgMemberDao {
                 "                memb,M_ORG_POST  where memb.org_post_id = M_ORG_POST.code) c2 LEFT JOIN M_test_unit  on nvl(c2.org_account_id,c2.sup_department_id) = M_test_unit.code " +
                 "                LEFT JOIN M_test_LEVEL  on c2.org_level_id=M_test_LEVEL.code";
         List<OrgMember> memberList = new ArrayList<>();
-        Connection connection = SyncConnectionUtil.getMidConnection();
+        Connection connection = JDBCAgent.getRawConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
@@ -159,7 +161,7 @@ public class OrgMemberDaoImpl implements OrgMemberDao {
         String testinsertSql = "insert into m_test_member(id,code,name,login_name,org_department_id,org_level_id,description,mobile,org_post_id) values (?,?,?,?,?,?,?,?,?)";
 
         try {
-            connection = SyncConnectionUtil.getMidConnection();
+            connection = JDBCAgent.getRawConnection();
             connection.setAutoCommit(false);
             ps = connection.prepareStatement(insertSql);
 
@@ -265,7 +267,7 @@ public class OrgMemberDaoImpl implements OrgMemberDao {
     }
 
     @Override
-    public List<OrgMember> queryUpdateOrgMember() {
+    public List<OrgMember> queryUpdateOrgMember() throws SQLException {
         //正式
         String sql = "select t.id,t.code,k.ou,k.is_enable,k.name,k.org_department_id unitid,k.org_level_id levelid,k.org_post_id postid,k.description,k.mobile from  (select distinct m.id,v.code  from m_org_member m,   " +
                 "(select v1.\"ou\" ou,v1.IS_ENABLE,v1.code,v1.name,u1.id org_department_id,l1.id org_level_id,p1.id org_post_id,v1.description,v1.mobile    from V_ORG_MEMBER v1,m_org_unit u1,m_org_level l1,m_org_post p1    " +
@@ -283,7 +285,7 @@ public class OrgMemberDaoImpl implements OrgMemberDao {
                 "                 (select v2.code,v2.name,u2.id org_department_id,l2.id org_level_id,p2.id org_post_id,v2.description,v2.mobile   " +
                 "                from V_test_MEMBER v2,m_test_unit u2,m_test_level l2,m_org_post p2   where v2.org_department_id = u2.code and v2.org_level_id = l2.code and v2.org_post_id = p2.code) k   on t.code = k.code ";
         List<OrgMember> memberList = new ArrayList<>();
-        Connection connection = SyncConnectionUtil.getMidConnection();
+        Connection connection = JDBCAgent.getRawConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
@@ -435,10 +437,10 @@ public class OrgMemberDaoImpl implements OrgMemberDao {
     }
 
     @Override
-    public List<OrgMember> queryNotExistOrgMember() {
+    public List<OrgMember> queryNotExistOrgMember() throws SQLException {
         String sql = "select M_ORG_MEMBER.id from M_ORG_MEMBER where not EXISTS (select * from V_ORG_MEMBER where M_ORG_MEMBER.code=V_ORG_MEMBER.code )";
         List<OrgMember> memberList = new ArrayList<>();
-        Connection connection = SyncConnectionUtil.getMidConnection();
+        Connection connection = JDBCAgent.getRawConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
