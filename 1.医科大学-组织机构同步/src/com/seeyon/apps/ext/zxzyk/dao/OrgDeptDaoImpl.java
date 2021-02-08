@@ -330,7 +330,7 @@ public class OrgDeptDaoImpl implements OrgDeptDao {
                 orgDept.setDeptname(res.getString("name"));
                 orgDept.setOrgAccountId(tools.getOrgAccountId());
                 orgDept.setUnitcode(res.getString("uint") == null ? "" : res.getString("uint"));
-                if (!"".equals(res.getString("unitid")) && !"0".equals(res.getString("unitid"))) {
+                if (!"".equals(res.getString("unitid")) && !"0".equals(res.getString("unitid")) && !"null".equals(res.getString("unitid"))) {
                     orgDept.setSuperior(res.getString("unitid"));
                 } else {
                     orgDept.setSuperior(tools.getOrgAccountId());
