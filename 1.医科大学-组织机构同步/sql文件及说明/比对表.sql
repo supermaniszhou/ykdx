@@ -22,5 +22,18 @@ CREATE TABLE M_ORG_UNIT (
 ) ;
 
 --人员
-
+drop table M_ORG_MEMBER;
+CREATE TABLE M_ORG_MEMBER (
+	ID varchar2(200),
+	code varchar2(200),
+	NAME varchar2(200),
+	login_name varchar2(200),
+	org_department_id varchar2(200),
+	org_level_id varchar2(200),
+	description varchar2(200),
+	mobile varchar2(200),
+	org_post_id varchar2(200),
+	ou varchar2(200),
+	is_enable varchar2(200)
+);
 
