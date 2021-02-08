@@ -4,6 +4,7 @@ import com.seeyon.apps.ext.zxzyk.dao.OrgMemberDao;
 import com.seeyon.apps.ext.zxzyk.dao.OrgMemberDaoImpl;
 import com.seeyon.apps.ext.zxzyk.po.OrgMember;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class OrgMemberManagerImpl implements OrgMemberManager {
@@ -11,25 +12,25 @@ public class OrgMemberManagerImpl implements OrgMemberManager {
     private OrgMemberDao orgMemberDao = new OrgMemberDaoImpl();
 
     @Override
-    public void insertOrgMember() {
+    public void insertOrgMember() throws SQLException {
         List<OrgMember> list = orgMemberDao.queryAddOrgMember();
         orgMemberDao.insertOrgMember(list);
     }
 
     @Override
-    public void updateOrgMember() {
+    public void updateOrgMember() throws SQLException {
         List<OrgMember> list = orgMemberDao.queryUpdateOrgMember();
         orgMemberDao.updateOrgMember(list);
     }
 
     @Override
-    public void deleteOrgMember() {
+    public void deleteOrgMember() throws SQLException {
         List<OrgMember> list = orgMemberDao.queryNotExistOrgMember();
         orgMemberDao.deleteOrgMember(list);
     }
 
     @Override
-    public void updateEnableOrgmember() {
+    public void updateEnableOrgmember() throws SQLException {
         List<OrgMember> list = orgMemberDao.queryNoEnableMember();
         orgMemberDao.updateIsEnableOfMember(list);
     }

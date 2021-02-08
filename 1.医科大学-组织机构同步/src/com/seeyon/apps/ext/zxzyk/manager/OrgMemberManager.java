@@ -1,12 +1,14 @@
 package com.seeyon.apps.ext.zxzyk.manager;
 
+import java.sql.SQLException;
+
 public interface OrgMemberManager {
 
-    void insertOrgMember();
+    void insertOrgMember() throws SQLException;
 
-    void updateOrgMember();
+    void updateOrgMember() throws SQLException;
 
-    void deleteOrgMember();
+    void deleteOrgMember() throws SQLException;
 
-    void updateEnableOrgmember();
+    void updateEnableOrgmember() throws SQLException;
 }
