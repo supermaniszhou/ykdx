@@ -4,11 +4,13 @@ import com.seeyon.apps.ext.zxzyk.po.OrgLevel;
 import com.seeyon.apps.ext.zxzyk.util.ReadConfigTools;
 import com.seeyon.apps.ext.zxzyk.util.SyncConnectionUtil;
 import com.seeyon.client.CTPRestClient;
+import com.seeyon.ctp.util.JDBCAgent;
 import net.sf.json.JSONObject;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,10 +21,10 @@ public class OrgLevelDaoImpl implements OrgLevelDao {
     private ReadConfigTools configTools = new ReadConfigTools();
 
     @Override
-    public List<OrgLevel> queryOrgLevel() {
+    public List<OrgLevel> queryOrgLevel() throws SQLException {
         List<OrgLevel> levelList = new ArrayList<>();
         String sql = "select vl.id,vl.name,vl.code,vl.is_enable from V_ORG_LEVEL vl where not exists (select * from M_ORG_LEVEL ml where ml.code=vl.code)";
-        Connection connection = SyncConnectionUtil.getMidConnection();
+        Connection connection = JDBCAgent.getRawConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
@@ -54,7 +56,7 @@ public class OrgLevelDaoImpl implements OrgLevelDao {
         PreparedStatement ps = null;
         String insertSql = "insert into M_ORG_LEVEL(id,name,code,description) values (?,?,?,?)";
         try {
-            connection = SyncConnectionUtil.getMidConnection();
+            connection = JDBCAgent.getRawConnection();
             connection.setAutoCommit(false);
             ps = connection.prepareStatement(insertSql);
             if (null != list && list.size() > 0) {
@@ -89,11 +91,12 @@ public class OrgLevelDaoImpl implements OrgLevelDao {
     }
 
     @Override
-    public List<OrgLevel> queryChangerLevel() {
+    public List<OrgLevel> queryChangerLevel() throws SQLException {
         List<OrgLevel> levelList = new ArrayList<>();
         String sql = "select VL.CODE,VL.name,ML.ID from V_ORG_LEVEL vl,M_ORG_LEVEL ml where VL.code =ML.code and VL.name <> ML.NAME";
         ResultSet rs = null;
-        Connection connection = SyncConnectionUtil.getMidConnection();
+        Connection connection = JDBCAgent.getRawConnection();
+        
         PreparedStatement ps = null;
         try {
             ps = connection.prepareStatement(sql);
@@ -148,11 +151,11 @@ public class OrgLevelDaoImpl implements OrgLevelDao {
     }
 
     @Override
-    public List<OrgLevel> queryNotExistLevel() {
+    public List<OrgLevel> queryNotExistLevel() throws SQLException {
         List<OrgLevel> levelList = new ArrayList<>();
         String sql = "select * from M_ORG_LEVEL ml where not EXISTS (select * from V_ORG_LEVEL vl where VL.CODE =ML.code)";
         ResultSet rs = null;
-        Connection connection = SyncConnectionUtil.getMidConnection();
+        Connection connection = JDBCAgent.getRawConnection();
         PreparedStatement ps = null;
         try {
             ps = connection.prepareStatement(sql);
