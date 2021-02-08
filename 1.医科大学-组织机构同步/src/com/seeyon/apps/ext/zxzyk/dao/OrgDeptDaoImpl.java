@@ -312,7 +312,7 @@ public class OrgDeptDaoImpl implements OrgDeptDao {
 
     @Override
     public void updateOrgDept() {
-        String sql = "select mv.id,mv.code,v2.name,v2.uint,m2.id unitid,v2.IS_ENABLE  from   (select distinct m.id,v.code from V_ORG_UNIT v,M_ORG_UNIT m where m.code = v.code     and (nvl(v.name,'~') <> nvl(m.name,'~') or nvl(v.uint,'~') <> nvl(m.uint,'~') or v.IS_ENABLE ='0') ) mv    left join V_ORG_UNIT v2 on mv.code = v2.code   left join M_ORG_UNIT m2 on v2.uint = m2.code order by mv.code";
+        String sql = "select * from (select mv.id,mv.code,v2.name,v2.uint,m2.id unitid,v2.IS_ENABLE  from   (select distinct m.id,v.code from V_ORG_UNIT v,M_ORG_UNIT m where m.code = v.code     and (nvl(v.name,'~') <> nvl(m.name,'~') or nvl(v.uint,'~') <> nvl(m.uint,'~') ) ) mv    left join V_ORG_UNIT v2 on mv.code = v2.code   left join M_ORG_UNIT m2 on v2.uint = m2.code order by mv.code) where is_enable='1'";
         CTPRestClient client = SyncConnectionUtil.getOaRest();
         Connection connection = null;
         PreparedStatement ps = null;

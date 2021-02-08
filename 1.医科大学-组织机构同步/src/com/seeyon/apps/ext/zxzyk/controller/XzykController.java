@@ -41,8 +41,8 @@ public class XzykController extends BaseController {
 //            xzykManager.clearTable();
 //            xzykManager.insertAll();
             //部门
-            orgDeptManager.insertOtherDept();
-//            orgDeptManager.updateOrgDept();
+//            orgDeptManager.insertOtherDept();
+            orgDeptManager.updateOrgDept();
 //
 //            //职级
 //            orgLevelManager.insertOrgLevel();
