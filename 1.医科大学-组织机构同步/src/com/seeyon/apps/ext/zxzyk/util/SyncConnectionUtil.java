@@ -85,8 +85,8 @@ public class SyncConnectionUtil {
         return connection;
     }
 
-    public static int insertResult(String sql) {
-        Connection connection = getMidConnection();
+    public static int insertResult(String sql) throws SQLException {
+        Connection connection = JDBCAgent.getRawConnection();
         Statement statement = null;
         int result = 0;
         try {

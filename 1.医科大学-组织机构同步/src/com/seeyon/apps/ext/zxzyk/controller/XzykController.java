@@ -41,7 +41,7 @@ public class XzykController extends BaseController {
 //            xzykManager.clearTable();
 //            xzykManager.insertAll();
             //部门
-//            orgDeptManager.insertOtherDept();
+            orgDeptManager.insertOtherDept();
             orgDeptManager.updateOrgDept();
 //
 //            //职级
@@ -55,7 +55,7 @@ public class XzykController extends BaseController {
             //跟新人员启用状态
 //            orgMemberManager.updateEnableOrgmember();
 
-//            orgDeptManager.deleteOrgDept();
+            orgDeptManager.deleteOrgDept();
 //            orgMemberManager.deleteOrgMember();
 //            orgLevelManager.deleteNotExistLevel();
             map.put("code", 0);
