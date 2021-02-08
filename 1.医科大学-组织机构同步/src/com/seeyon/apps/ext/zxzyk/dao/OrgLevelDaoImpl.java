@@ -191,9 +191,8 @@ public class OrgLevelDaoImpl implements OrgLevelDao {
                 for (OrgLevel orgLevel : list) {
                     map = new HashMap();
                     map.put("id", orgLevel.getLevelid());
-                    map.put("enabled", false);
 
-                    JSONObject json = client.put("/orgLevel/" + orgLevel.getLevelid() + "/enabled/false", map, JSONObject.class);
+                    JSONObject json = client.delete("/orgLevel/" + orgLevel.getLevelid(), map, JSONObject.class);
                     if (null != json) {
                         if (json.getBoolean("success")) {
                             sql = sql.concat("id='" + orgLevel.getLevelid() + "'");
