@@ -33,7 +33,7 @@ public class OrgDeptDaoImpl implements OrgDeptDao {
 
         List<OrgDept> firstDeptList = new ArrayList<>();
         String sql = "select v.code,v.name,(select m.id from M_ORG_UNIT m where m.code = v.uint) parent,v.uint from (select * from V_ORG_UNIT where IS_DELETED <> '1' and is_enable='1' and code <> '0') v  where v.uint is not null and v.uint in('0') and not exists(select 1 from M_ORG_UNIT m where m.code = v.code) ";
-        Connection connection =  JDBCAgent.getRawConnection();
+        Connection connection = JDBCAgent.getRawConnection();
         PreparedStatement prep = null;
         ResultSet res = null;
         try {
@@ -43,7 +43,7 @@ public class OrgDeptDaoImpl implements OrgDeptDao {
             String superior = tools.getOrgAccountId();
             while (res.next()) {
                 orgDept = new OrgDept();
-                if(!(res.getString("code")).contains("999")){
+                if (!(res.getString("code")).contains("999")) {
                     orgDept.setDeptcode(res.getString("code"));
                     orgDept.setDeptname(res.getString("name"));
                     orgDept.setSuperior(res.getString("uint"));
@@ -70,7 +70,7 @@ public class OrgDeptDaoImpl implements OrgDeptDao {
 
         List<OrgDept> firstDeptList = new ArrayList<>();
         String sql = "select v.code,v.name,(select m.id from M_ORG_UNIT m where m.code = v.uint) parent,v.uint,v.is_enable,v.is_deleted from (select * from V_ORG_UNIT where IS_DELETED <> '1') v  where v.uint is not null and v.uint not in('0')  and not exists(select 1 from M_ORG_UNIT m where m.code = v.code)";
-        Connection connection =  JDBCAgent.getRawConnection();
+        Connection connection = JDBCAgent.getRawConnection();
         PreparedStatement prep = null;
         ResultSet res = null;
         try {
@@ -80,7 +80,7 @@ public class OrgDeptDaoImpl implements OrgDeptDao {
             String superior = tools.getOrgAccountId();
             while (res.next()) {
                 orgDept = new OrgDept();
-                if(!(res.getString("code")).contains("999")){
+                if (!(res.getString("code")).contains("999")) {
                     orgDept.setDeptcode(res.getString("code"));
                     orgDept.setDeptname(res.getString("name"));
                     orgDept.setOrgAccountId(superior);
@@ -186,7 +186,7 @@ public class OrgDeptDaoImpl implements OrgDeptDao {
         String insertSql = "insert into M_ORG_UNIT(id,code,name,uint,sort_id) values (?,?,?,?,?)";
         try {
             if (null != list && list.size() > 0) {
-                connection =  JDBCAgent.getRawConnection();
+                connection = JDBCAgent.getRawConnection();
                 ps = connection.prepareStatement(insertSql);
                 try {
                     for (int i = 0; i < list.size(); i++) {
@@ -267,7 +267,7 @@ public class OrgDeptDaoImpl implements OrgDeptDao {
         StringBuffer sb = new StringBuffer();
         sb.append("delete from M_ORG_UNIT where id in (0");
         try {
-            connection =  JDBCAgent.getRawConnection();
+            connection = JDBCAgent.getRawConnection();
             //获取需要删除的部门
             String qSql = "select m.* from M_ORG_UNIT m where 1=1 and  not exists (select 1 from V_ORG_UNIT v where v.code=m.code)";
             ps = connection.prepareStatement(qSql);
@@ -318,7 +318,7 @@ public class OrgDeptDaoImpl implements OrgDeptDao {
         PreparedStatement ps = null;
         ResultSet res = null;
         try {
-            connection =  JDBCAgent.getRawConnection();
+            connection = JDBCAgent.getRawConnection();
             ps = connection.prepareStatement(sql);
             res = ps.executeQuery();
             List<OrgDept> deptList = new ArrayList<>();
@@ -330,7 +330,7 @@ public class OrgDeptDaoImpl implements OrgDeptDao {
                 orgDept.setDeptname(res.getString("name"));
                 orgDept.setOrgAccountId(tools.getOrgAccountId());
                 orgDept.setUnitcode(res.getString("uint") == null ? "" : res.getString("uint"));
-                if (!"".equals(res.getString("unitid")) && !"0".equals(res.getString("unitid")) && !"null".equals(res.getString("unitid"))) {
+                if (!"".equals(res.getString("unitid")) && !"0".equals(res.getString("unitid")) && !"null".equals(res.getString("unitid")) && null != (res.getString("unitid"))) {
                     orgDept.setSuperior(res.getString("unitid"));
                 } else {
                     orgDept.setSuperior(tools.getOrgAccountId());
