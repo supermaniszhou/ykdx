@@ -32,12 +32,13 @@ public class OrgDeptDaoImpl implements OrgDeptDao {
     public List<OrgDept> queryByFirstDept() throws SQLException {
 
         List<OrgDept> firstDeptList = new ArrayList<>();
-        String sql = "select v.code,v.name,(select m.id from M_ORG_UNIT m where m.code = v.uint) parent,v.uint from (select * from V_ORG_UNIT where IS_DELETED <> '1' and is_enable='1' and code <> '0') v  where v.uint is not null and v.uint in('0') and not exists(select 1 from M_ORG_UNIT m where m.code = v.code) ";
+        StringBuffer sql = new StringBuffer();
+        sql.append("select v.code,v.name,(select m.id from M_ORG_UNIT m where m.code = v.uint) parent,v.uint from (select * from V_ORG_UNIT where IS_DELETED <> '1' and is_enable='1' and code <> '0') v  where v.uint is not null and v.uint in('0') and not exists(select 1 from M_ORG_UNIT m where m.code = v.code) ");
         Connection connection = JDBCAgent.getRawConnection();
         PreparedStatement prep = null;
         ResultSet res = null;
         try {
-            prep = connection.prepareStatement(sql);
+            prep = connection.prepareStatement(sql.toString());
             res = prep.executeQuery();
             OrgDept orgDept = null;
             String superior = tools.getOrgAccountId();
@@ -60,7 +61,6 @@ public class OrgDeptDaoImpl implements OrgDeptDao {
             SyncConnectionUtil.closeResultSet(res);
             SyncConnectionUtil.closePrepareStatement(prep);
             SyncConnectionUtil.closeConnection(connection);
-
         }
         return firstDeptList;
     }
@@ -69,12 +69,13 @@ public class OrgDeptDaoImpl implements OrgDeptDao {
     public List<OrgDept> queryByOtherDept(String accountId) throws SQLException {
 
         List<OrgDept> firstDeptList = new ArrayList<>();
-        String sql = "select v.code,v.name,(select m.id from M_ORG_UNIT m where m.code = v.uint) parent,v.uint,v.is_enable,v.is_deleted from (select * from V_ORG_UNIT where IS_DELETED <> '1') v  where v.uint is not null and v.uint not in('0')  and not exists(select 1 from M_ORG_UNIT m where m.code = v.code)";
+        StringBuffer sql = new StringBuffer();
+        sql.append("select v.code,v.name,(select m.id from M_ORG_UNIT m where m.code = v.uint) parent,v.uint,v.is_enable,v.is_deleted from (select * from V_ORG_UNIT where IS_DELETED <> '1') v  where v.uint is not null and v.uint not in('0')  and not exists(select 1 from M_ORG_UNIT m where m.code = v.code)");
         Connection connection = JDBCAgent.getRawConnection();
         PreparedStatement prep = null;
         ResultSet res = null;
         try {
-            prep = connection.prepareStatement(sql);
+            prep = connection.prepareStatement(sql.toString());
             res = prep.executeQuery();
             OrgDept orgDept = null;
             String superior = tools.getOrgAccountId();
@@ -106,12 +107,13 @@ public class OrgDeptDaoImpl implements OrgDeptDao {
         CTPRestClient client = SyncConnectionUtil.getOaRest();
         Connection connection = null;
         PreparedStatement ps = null;
-        String insertSql = "insert into M_ORG_UNIT(id,code,name,uint,sort_id,is_enable,is_deleted) values (?,?,?,?,?,?,?)";
+        StringBuffer insertSql = new StringBuffer();
+        insertSql.append("insert into M_ORG_UNIT(id,code,name,uint,sort_id,is_enable,is_deleted) values (?,?,?,?,?,?,?)");
         try {
             if (null != list && list.size() > 0) {
                 connection = JDBCAgent.getRawConnection();
                 connection.setAutoCommit(false);
-                ps = connection.prepareStatement(insertSql);
+                ps = connection.prepareStatement(insertSql.toString());
                 for (OrgDept dept : list) {
 
                     Map<String, Object> dmap = new HashMap<>();
@@ -269,8 +271,9 @@ public class OrgDeptDaoImpl implements OrgDeptDao {
         try {
             connection = JDBCAgent.getRawConnection();
             //获取需要删除的部门
-            String qSql = "select m.* from M_ORG_UNIT m where 1=1 and  not exists (select 1 from V_ORG_UNIT v where v.code=m.code)";
-            ps = connection.prepareStatement(qSql);
+            StringBuffer qSql = new StringBuffer();
+            qSql.append("select m.* from M_ORG_UNIT m where 1=1 and  not exists (select 1 from V_ORG_UNIT v where v.code=m.code)");
+            ps = connection.prepareStatement(qSql.toString());
             res = ps.executeQuery();
             List<OrgDept> deptList = new ArrayList<>();
             OrgDept orgDept = null;
@@ -312,14 +315,15 @@ public class OrgDeptDaoImpl implements OrgDeptDao {
 
     @Override
     public void updateOrgDept() {
-        String sql = "select * from (select mv.id,mv.code,v2.name,v2.uint,m2.id unitid,v2.IS_ENABLE  from   (select distinct m.id,v.code from V_ORG_UNIT v,M_ORG_UNIT m where m.code = v.code     and (nvl(v.name,'~') <> nvl(m.name,'~') or nvl(v.uint,'~') <> nvl(m.uint,'~') ) ) mv    left join V_ORG_UNIT v2 on mv.code = v2.code   left join M_ORG_UNIT m2 on v2.uint = m2.code order by mv.code) where is_enable='1'";
+        StringBuffer sql = new StringBuffer();
+        sql.append("select * from (select mv.id,mv.code,v2.name,v2.uint,m2.id unitid,v2.IS_ENABLE  from   (select distinct m.id,v.code from V_ORG_UNIT v,M_ORG_UNIT m where m.code = v.code     and (nvl(v.name,'~') <> nvl(m.name,'~') or nvl(v.uint,'~') <> nvl(m.uint,'~') ) ) mv    left join V_ORG_UNIT v2 on mv.code = v2.code   left join M_ORG_UNIT m2 on v2.uint = m2.code order by mv.code) where is_enable='1'");
         CTPRestClient client = SyncConnectionUtil.getOaRest();
         Connection connection = null;
         PreparedStatement ps = null;
         ResultSet res = null;
         try {
             connection = JDBCAgent.getRawConnection();
-            ps = connection.prepareStatement(sql);
+            ps = connection.prepareStatement(sql.toString());
             res = ps.executeQuery();
             List<OrgDept> deptList = new ArrayList<>();
             OrgDept orgDept = null;
