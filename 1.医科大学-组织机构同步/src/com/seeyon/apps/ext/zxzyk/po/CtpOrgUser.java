@@ -100,10 +100,10 @@ public class CtpOrgUser {
     }
 
     public Date getActionTime() {
-        return actionTime;
+        return (Date) actionTime.clone();
     }
 
     public void setActionTime(Date actionTime) {
-        this.actionTime = actionTime;
+        this.actionTime = (Date) actionTime.clone();
     }
 }
