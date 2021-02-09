@@ -146,17 +146,16 @@ public class SyncConnectionUtil {
 
 
     public static ResultSet getResultSet(String sql) {
-        Connection connection = getMidConnection();
-        PreparedStatement ps = null;
-        ResultSet resultSet = null;
-        try {
-            ps = connection.prepareStatement(sql);
-            resultSet = ps.executeQuery();
+
+        try (Connection connection = getMidConnection();
+             PreparedStatement ps = connection.prepareStatement(sql);
+             ResultSet resultSet = ps.executeQuery();
+        ) {
+            return resultSet;
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
         }
-        return resultSet;
+        return null;
     }
 
 }
