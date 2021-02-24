@@ -272,7 +272,7 @@ public class OrgMemberDaoImpl implements OrgMemberDao {
 
     @Override
     public List<OrgMember> queryUpdateOrgMember() throws SQLException {
-        //正式
+        //正方
         String sql = "select t.id,t.code,k.ou,k.is_enable,k.name,k.org_department_id unitid,k.org_level_id levelid,k.org_post_id postid,k.description,k.mobile from  (select distinct m.id,v.code  from m_org_member m,   " +
                 "(select v1.\"ou\" ou,v1.IS_ENABLE,v1.code,v1.name,u1.id org_department_id,l1.id org_level_id,p1.id org_post_id,v1.description,v1.mobile    from V_ORG_MEMBER v1,m_org_unit u1,m_org_level l1,m_org_post p1    " +
                 "where v1.org_department_id = u1.code and v1.org_level_id = l1.code and v1.org_post_id = p1.code) v   where v.code = m.code   and (       nvl(m.name,'~') <> nvl(v.name,'~') or    " +
@@ -281,19 +281,29 @@ public class OrgMemberDaoImpl implements OrgMemberDao {
                 "(select v2.\"ou\" ou,v2.IS_ENABLE,v2.code,v2.name,u2.id org_department_id,l2.id org_level_id,p2.id org_post_id,v2.description,v2.mobile    " +
                 "from V_ORG_MEMBER v2,m_org_unit u2,m_org_level l2,m_org_post p2   where v2.org_department_id = u2.code and v2.org_level_id = l2.code and v2.org_post_id = p2.code) k   on t.code = k.code ";
         //测试
-        String testsql = "select t.id,t.code,k.name,k.org_department_id unitid,k.org_level_id levelid,k.org_post_id postid,k.description,k.mobile from  (select distinct m.id,v.code  from m_test_member m,  " +
-                "                 (select v1.code,v1.name,u1.id org_department_id,l1.id org_level_id,p1.id org_post_id,v1.description,v1.mobile    from V_test_MEMBER v1,m_test_unit u1,m_test_level l1,m_org_post p1   " +
-                "                where v1.org_department_id = u1.code and v1.org_level_id = l1.code and v1.org_post_id = p1.code) v   where v.code = m.code   and (       nvl(m.name,'~') <> nvl(v.name,'~') or   " +
-                "                 nvl(m.org_department_id,'~') <> nvl(v.org_department_id,'~') or       nvl(m.org_level_id,'~') <> nvl(v.org_level_id,'~') or       nvl(m.org_post_id,'~') <> nvl(v.org_post_id,'~') or  " +
-                "                 nvl(m.description,'~') <> nvl(v.description,'~') or       nvl(m.mobile,'~') <> nvl(v.mobile,'~')   ) ) t  left join  " +
-                "                 (select v2.code,v2.name,u2.id org_department_id,l2.id org_level_id,p2.id org_post_id,v2.description,v2.mobile   " +
-                "                from V_test_MEMBER v2,m_test_unit u2,m_test_level l2,m_org_post p2   where v2.org_department_id = u2.code and v2.org_level_id = l2.code and v2.org_post_id = p2.code) k   on t.code = k.code ";
+        String jinZhiSql = "select m.id,v.* from (  " +
+                "select name,code,is_enable,is_deleted,mobile,DESCRIPTION,  " +
+                "(select m.id from M_ORG_UNIT m where m.code=VOM.org_department_id) orgDepartmentId,  " +
+                "(select MOL.id from M_ORG_LEVEL mol where MOL.code=VOM.ORG_LEVEL_ID) orgLevelId,  " +
+                "(select MOP.id from M_ORG_POST mop where mop.code=vom.ORG_POST_ID) orgPostId from V_ORG_MEMBER vom ) v,M_ORG_MEMBER m where v.code=m.code and (  " +
+                "nvl(m.name,'~') <> nvl(v.name,'~')    " +
+                " or nvl(m.org_department_id,'~') <> nvl(v.orgDepartmentId,'~')    " +
+                " or nvl(m.org_level_id,'~') <> nvl(v.orgLevelId,'~')    " +
+                " or nvl(m.org_post_id,'~') <> nvl(v.orgPostId,'~')    " +
+                " or nvl(m.description,'~') <> nvl(v.description,'~')    " +
+                " or nvl(m.mobile,'~') <> nvl(v.mobile,'~')    " +
+                " or nvl(m.IS_ENABLE,'1')!=v.IS_ENABLE   " +
+                ") ";
         List<OrgMember> memberList = new ArrayList<>();
         Connection connection = JDBCAgent.getRawConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
-            ps = connection.prepareStatement(sql);
+            if(XzykDao.debug){
+                ps = connection.prepareStatement(jinZhiSql);
+            }else{
+                ps = connection.prepareStatement(sql);
+            }
             rs = ps.executeQuery();
             OrgMember orgMember = null;
             while (rs.next()) {
@@ -303,12 +313,12 @@ public class OrgMemberDaoImpl implements OrgMemberDao {
                 orgMember.setMembercode(rs.getString("code"));
                 orgMember.setMembername(rs.getString("name"));
                 orgMember.setLoginName(rs.getString("code"));
-                orgMember.setOrgDepartmentId(rs.getString("unitid"));
-                orgMember.setOrgLevelId(rs.getString("levelid"));
-                orgMember.setOrgPostId(rs.getString("postid"));
+                orgMember.setOrgDepartmentId(rs.getString("orgdepartmentid"));
+                orgMember.setOrgLevelId(rs.getString("orglevelid"));
+                orgMember.setOrgPostId(rs.getString("orgpostid"));
                 orgMember.setDescription(rs.getString("description"));
                 orgMember.setTelNumber(rs.getString("mobile"));
-                orgMember.setOu(rs.getString("ou"));
+//                orgMember.setOu(rs.getString("ou"));
                 orgMember.setP1(rs.getString("is_enable"));
                 memberList.add(orgMember);
             }
