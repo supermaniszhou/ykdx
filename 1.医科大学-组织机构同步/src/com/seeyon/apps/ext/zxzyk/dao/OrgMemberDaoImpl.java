@@ -366,24 +366,24 @@ public class OrgMemberDaoImpl implements OrgMemberDao {
                             if (json.getBoolean("success")) {
                                 JSONObject ent = json.getJSONArray("successMsgs").getJSONObject(0).getJSONObject("ent");
                                 String userid = ent.getString("id");
-                                CtpOrgUser user = DBAgent.get(CtpOrgUser.class, Long.parseLong(userid));
-                                CtpOrgUser orgUser = new CtpOrgUser();
-                                orgUser.setId(Long.parseLong(userid));
-                                orgUser.setType("ldap.member.openLdap");
-                                orgUser.setLoginName(ent.getString("loginName"));
-                                orgUser.setExLoginName(member.getMembercode());
-                                orgUser.setExPassword("1");
-                                orgUser.setExId(member.getMemberid());
-                                orgUser.setExUserId(member.getMemberid());
-                                orgUser.setMemberId(Long.parseLong(userid));
-                                orgUser.setActionTime(new Date());
-                                orgUser.setDescription("te");
-                                orgUser.setExUnitCode("uid=" + ent.getString("loginName") + ",ou=" + member.getOu());
-                                if (null != user) {
-                                    DBAgent.update(orgUser);
-                                } else {
-                                    DBAgent.save(orgUser);
-                                }
+//                                CtpOrgUser user = DBAgent.get(CtpOrgUser.class, Long.parseLong(userid));
+//                                CtpOrgUser orgUser = new CtpOrgUser();
+//                                orgUser.setId(Long.parseLong(userid));
+//                                orgUser.setType("ldap.member.openLdap");
+//                                orgUser.setLoginName(ent.getString("loginName"));
+//                                orgUser.setExLoginName(member.getMembercode());
+//                                orgUser.setExPassword("1");
+//                                orgUser.setExId(member.getMemberid());
+//                                orgUser.setExUserId(member.getMemberid());
+//                                orgUser.setMemberId(Long.parseLong(userid));
+//                                orgUser.setActionTime(new Date());
+//                                orgUser.setDescription("te");
+//                                orgUser.setExUnitCode("uid=" + ent.getString("loginName") + ",ou=" + member.getOu());
+//                                if (null != user) {
+//                                    DBAgent.update(orgUser);
+//                                } else {
+//                                    DBAgent.save(orgUser);
+//                                }
 
 
                                 String sql = "update m_org_member set ";
@@ -417,11 +417,11 @@ public class OrgMemberDaoImpl implements OrgMemberDao {
                                     sql = sql + " description = '', ";
                                 }
 
-                                if (member.getOu() != null && !"".equals(member.getOu())) {
-                                    sql = sql + " ou = '" + member.getOu() + "', ";
-                                } else {
-                                    sql = sql + " ou = '', ";
-                                }
+//                                if (member.getOu() != null && !"".equals(member.getOu())) {
+//                                    sql = sql + " ou = '" + member.getOu() + "', ";
+//                                } else {
+//                                    sql = sql + " ou = '', ";
+//                                }
 
                                 if (member.getP1() != null && !"".equals(member.getP1())) {
                                     sql = sql + " is_enable = '" + member.getP1() + "', ";
