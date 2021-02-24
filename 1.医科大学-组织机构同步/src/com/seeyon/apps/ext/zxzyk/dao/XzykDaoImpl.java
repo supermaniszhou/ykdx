@@ -12,6 +12,7 @@ public class XzykDaoImpl implements XzykDao {
     public List<Map<String, Object>> queryAll(String sql) {
         List<Map<String, Object>> mapList = SyncConnectionUtil.getResultSet(sql);
         return mapList;
+
     }
 
     @Override
