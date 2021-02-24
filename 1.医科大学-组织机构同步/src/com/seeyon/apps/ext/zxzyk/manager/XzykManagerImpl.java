@@ -36,6 +36,7 @@ public class XzykManagerImpl implements XzykManager {
         final String levelSql = "select * from USR_DATA.V_ORG_LEVEL  where IS_ENABLE=1 and IS_DELETED=0";
         List<Map<String, Object>> levelListMap = xzykDao.queryAll(levelSql);
         xzykDao.insertAll("V_ORG_LEVEL", levelListMap);
+
     }
 
     @Override
