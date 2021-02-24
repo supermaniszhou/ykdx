@@ -136,6 +136,7 @@ public class SyncConnectionUtil {
         }
     }
 
+
     public static void closeStatement(Statement ps) {
         if (null != ps) {
             try {
