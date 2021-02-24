@@ -452,7 +452,7 @@ public class OrgMemberDaoImpl implements OrgMemberDao {
 
     @Override
     public List<OrgMember> queryNotExistOrgMember() throws SQLException {
-        String sql = "select M_ORG_MEMBER.id from M_ORG_MEMBER where not EXISTS (select * from V_ORG_MEMBER where M_ORG_MEMBER.code=V_ORG_MEMBER.code )";
+        String sql = "select mom.id from M_ORG_MEMBER mom where not EXISTS (select * from V_ORG_MEMBER vom where mom.code=vom.code )";
         List<OrgMember> memberList = new ArrayList<>();
         Connection connection = JDBCAgent.getRawConnection();
         PreparedStatement ps = null;
