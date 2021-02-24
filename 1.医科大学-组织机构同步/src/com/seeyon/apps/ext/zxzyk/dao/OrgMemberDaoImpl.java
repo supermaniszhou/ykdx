@@ -106,7 +106,7 @@ public class OrgMemberDaoImpl implements OrgMemberDao {
 //                "memb,M_ORG_POST  where memb.org_post_id = M_ORG_POST.code) c2 LEFT JOIN M_ORG_UNIT  on nvl(c2.org_account_id,c2.sup_department_id) = M_ORG_UNIT.code " +
 //                "LEFT JOIN M_ORG_LEVEL  on c2.org_level_id=M_ORG_LEVEL.code";
         //测试
-        String sqlCe = "select name,code,is_enable,is_deleted,mobile,DESCRIPTION, " +
+        String sqlCe = "select id,name,code,is_enable,is_deleted,mobile,DESCRIPTION, " +
                 "(select m.id from M_ORG_UNIT m where m.code=VOM.org_department_id) orgDepartmentId, " +
                 "(select MOL.id from M_ORG_LEVEL mol where MOL.code=VOM.ORG_LEVEL_ID) orgLevelId, " +
                 "(select MOP.id from M_ORG_POST mop where mop.code=vom.ORG_POST_ID) orgPostId from V_ORG_MEMBER vom where not exists (select mom.* from M_ORG_MEMBER mom where mom.code=vom.code)";
