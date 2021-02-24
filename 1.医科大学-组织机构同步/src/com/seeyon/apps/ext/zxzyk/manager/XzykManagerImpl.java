@@ -6,6 +6,7 @@ import org.apache.commons.logging.LogFactory;
 import com.seeyon.apps.ext.zxzyk.dao.XzykDao;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -31,7 +32,17 @@ public class XzykManagerImpl implements XzykManager {
 
         final String memberSql = "select * from USR_DATA.V_ORG_MEMBER  where IS_ENABLE=1 and IS_DELETED=0";
         List<Map<String, Object>> memberListMap = xzykDao.queryAll(memberSql);
-        xzykDao.insertAll("V_ORG_MEMBER", memberListMap);
+        List<Map<String, Object>> mapList = new ArrayList<>();
+        List<String> idList = new ArrayList<>();
+        for (int k = 0; k < memberListMap.size(); k++) {
+            Map<String, Object> map = memberListMap.get(k);
+            String id = (String) map.get("ID");
+            if (!idList.contains(id)) {
+                mapList.add(map);
+                idList.add(id);
+            }
+        }
+        xzykDao.insertAll("V_ORG_MEMBER", mapList);
 
         final String levelSql = "select * from USR_DATA.V_ORG_LEVEL  where IS_ENABLE=1 and IS_DELETED=0";
         List<Map<String, Object>> levelListMap = xzykDao.queryAll(levelSql);
