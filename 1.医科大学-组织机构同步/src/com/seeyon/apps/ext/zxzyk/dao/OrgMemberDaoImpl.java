@@ -17,7 +17,7 @@ import java.util.*;
 
 public class OrgMemberDaoImpl implements OrgMemberDao {
 
-    private ReadConfigTools configTools=new ReadConfigTools();
+    private ReadConfigTools configTools = new ReadConfigTools();
 
     @Override
     public List<OrgMember> queryNoEnableMember() throws SQLException {
@@ -100,23 +100,26 @@ public class OrgMemberDaoImpl implements OrgMemberDao {
     @Override
     public List<OrgMember> queryAddOrgMember() throws SQLException {
         //正式
-        String sql = "select DISTINCT C2.is_enable,c2.code,c2.name,c2.id,c2.POSTID,c2.description,c2.mobile,M_ORG_UNIT.id unitId,M_ORG_LEVEL.id levelId ,c2.\"ou\" ou from " +
-                "(select memb.*,M_ORG_POST.id postid from (" +
-                "select * from V_ORG_MEMBER vm where not EXISTS(select * from M_ORG_MEMBER  where vm.code = M_ORG_MEMBER.code  and vm.name = M_ORG_MEMBER.name)) " +
-                "memb,M_ORG_POST  where memb.org_post_id = M_ORG_POST.code) c2 LEFT JOIN M_ORG_UNIT  on nvl(c2.org_account_id,c2.sup_department_id) = M_ORG_UNIT.code " +
-                "LEFT JOIN M_ORG_LEVEL  on c2.org_level_id=M_ORG_LEVEL.code";
+//        String sql = "select DISTINCT C2.is_enable,c2.code,c2.name,c2.id,c2.POSTID,c2.description,c2.mobile,M_ORG_UNIT.id unitId,M_ORG_LEVEL.id levelId ,c2.\"ou\" ou from " +
+//                "(select memb.*,M_ORG_POST.id postid from (" +
+//                "select * from V_ORG_MEMBER vm where not EXISTS(select * from M_ORG_MEMBER  where vm.code = M_ORG_MEMBER.code  and vm.name = M_ORG_MEMBER.name)) " +
+//                "memb,M_ORG_POST  where memb.org_post_id = M_ORG_POST.code) c2 LEFT JOIN M_ORG_UNIT  on nvl(c2.org_account_id,c2.sup_department_id) = M_ORG_UNIT.code " +
+//                "LEFT JOIN M_ORG_LEVEL  on c2.org_level_id=M_ORG_LEVEL.code";
         //测试
-        String testsql = "select DISTINCT c2.code,c2.name,c2.id,c2.POSTID,c2.description,c2.mobile,M_test_unit.id unitId,M_test_LEVEL.id levelId from " +
-                "                (select memb.*,M_ORG_POST.id postid from (" +
-                "                select * from V_test_MEMBER vm where not EXISTS(select * from M_test_MEMBER  where vm.code = M_test_MEMBER.code  and vm.name = M_test_MEMBER.name)) " +
-                "                memb,M_ORG_POST  where memb.org_post_id = M_ORG_POST.code) c2 LEFT JOIN M_test_unit  on nvl(c2.org_account_id,c2.sup_department_id) = M_test_unit.code " +
-                "                LEFT JOIN M_test_LEVEL  on c2.org_level_id=M_test_LEVEL.code";
+        String sqlCe = "select name,code,is_enable,is_deleted,mobile,DESCRIPTION, " +
+                "(select m.id from M_ORG_UNIT m where m.code=VOM.org_department_id) orgDepartmentId, " +
+                "(select MOL.id from M_ORG_LEVEL mol where MOL.code=VOM.ORG_LEVEL_ID) orgLevelId, " +
+                "(select MOP.id from M_ORG_POST mop where mop.code=vom.ORG_POST_ID) orgPostId from V_ORG_MEMBER vom where not exists (select mom.* from M_ORG_MEMBER mom where mom.code=vom.code)";
         List<OrgMember> memberList = new ArrayList<>();
         Connection connection = JDBCAgent.getRawConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
-            ps = connection.prepareStatement(sql);
+            if (XzykDao.debug) {
+                ps = connection.prepareStatement(sqlCe);
+            } else {
+//                ps = connection.prepareStatement(sql);
+            }
             rs = ps.executeQuery();
             OrgMember orgMember = null;
             while (rs.next()) {
@@ -126,12 +129,12 @@ public class OrgMemberDaoImpl implements OrgMemberDao {
                 orgMember.setMembercode(rs.getString("code"));
                 orgMember.setMembername(rs.getString("name"));
                 orgMember.setLoginName(rs.getString("code"));
-                orgMember.setOrgDepartmentId(rs.getString("unitid"));
-                orgMember.setOrgLevelId(rs.getString("levelid"));
-                orgMember.setOrgPostId(rs.getString("postid"));
+                orgMember.setOrgDepartmentId(rs.getString("orgdepartmentid"));
+                orgMember.setOrgLevelId(rs.getString("orglevelid"));
+                orgMember.setOrgPostId(rs.getString("orgpostid"));
                 orgMember.setDescription(rs.getString("description"));
                 orgMember.setTelNumber(rs.getString("mobile"));
-                orgMember.setOu(rs.getString("ou"));
+//                orgMember.setOu(rs.getString("ou"));
                 if ("1".equals(rs.getString("is_enable"))) {
                     orgMember.setEnabled(true);
                 } else {
@@ -157,13 +160,13 @@ public class OrgMemberDaoImpl implements OrgMemberDao {
         PreparedStatement ps = null;
         //正式
         String insertSql = "insert into m_org_member(id,code,name,login_name,org_department_id,org_level_id,description,mobile,org_post_id,ou,is_enable) values (?,?,?,?,?,?,?,?,?,?,?)";
-        //测试
-        String testinsertSql = "insert into m_test_member(id,code,name,login_name,org_department_id,org_level_id,description,mobile,org_post_id) values (?,?,?,?,?,?,?,?,?)";
 
         try {
             connection = JDBCAgent.getRawConnection();
             connection.setAutoCommit(false);
-            ps = connection.prepareStatement(insertSql);
+            if (XzykDao.debug) {
+                ps = connection.prepareStatement(insertSql);
+            }
 
             if (null != list && list.size() > 0) {
                 Map memberMap = null;
@@ -200,24 +203,25 @@ public class OrgMemberDaoImpl implements OrgMemberDao {
                                 ps.setString(11, member.getEnabled() ? "1" : "0");
                                 ps.addBatch();
 
-                                CtpOrgUser orgUser = new CtpOrgUser();
-                                orgUser.setId(Long.parseLong(userid));
-                                orgUser.setType("ldap.member.openLdap");
-                                orgUser.setLoginName(ent.getString("loginName"));
-                                orgUser.setExLoginName(member.getMembercode());
-                                orgUser.setExPassword("1");
-                                orgUser.setExId(member.getMemberid());
-                                orgUser.setExUserId(member.getMemberid());
-                                orgUser.setMemberId(Long.parseLong(userid));
-                                orgUser.setActionTime(new Date());
-                                orgUser.setDescription("te");
-                                orgUser.setExUnitCode("uid=" + ent.getString("loginName") + ",ou=" + member.getOu());
-                                DBAgent.save(orgUser);
+                                //这是设置ldap账号信息
+//                                CtpOrgUser orgUser = new CtpOrgUser();
+//                                orgUser.setId(Long.parseLong(userid));
+//                                orgUser.setType("ldap.member.openLdap");
+//                                orgUser.setLoginName(ent.getString("loginName"));
+//                                orgUser.setExLoginName(member.getMembercode());
+//                                orgUser.setExPassword("1");
+//                                orgUser.setExId(member.getMemberid());
+//                                orgUser.setExUserId(member.getMemberid());
+//                                orgUser.setMemberId(Long.parseLong(userid));
+//                                orgUser.setActionTime(new Date());
+//                                orgUser.setDescription("te");
+//                                orgUser.setExUnitCode("uid=" + ent.getString("loginName") + ",ou=" + member.getOu());
+//                                DBAgent.save(orgUser);
                             }
                         }
                     } else {
                         String userid = memberJson.getString("id");
-                        CtpOrgUser user = DBAgent.get(CtpOrgUser.class, Long.parseLong(userid));
+//                        CtpOrgUser user = DBAgent.get(CtpOrgUser.class, Long.parseLong(userid));
 
                         ps.setString(1, userid);
                         ps.setString(2, member.getMembercode());
@@ -235,23 +239,23 @@ public class OrgMemberDaoImpl implements OrgMemberDao {
                         ps.executeBatch();
                         connection.commit();
 
-                        CtpOrgUser orgUser = new CtpOrgUser();
-                        orgUser.setId(Long.parseLong(userid));
-                        orgUser.setType("ldap.member.openLdap");
-                        orgUser.setLoginName(memberJson.getString("loginName"));
-                        orgUser.setExLoginName(member.getMembercode());
-                        orgUser.setExPassword("1");
-                        orgUser.setExId(member.getMemberid());
-                        orgUser.setExUserId(member.getMemberid());
-                        orgUser.setMemberId(Long.parseLong(userid));
-                        orgUser.setActionTime(new Date());
-                        orgUser.setDescription("te");
-                        orgUser.setExUnitCode("uid=" + memberJson.getString("loginName") + ",ou=" + member.getOu());
-                        if (null != user) {
-                            DBAgent.update(orgUser);
-                        } else {
-                            DBAgent.save(orgUser);
-                        }
+//                        CtpOrgUser orgUser = new CtpOrgUser();
+//                        orgUser.setId(Long.parseLong(userid));
+//                        orgUser.setType("ldap.member.openLdap");
+//                        orgUser.setLoginName(memberJson.getString("loginName"));
+//                        orgUser.setExLoginName(member.getMembercode());
+//                        orgUser.setExPassword("1");
+//                        orgUser.setExId(member.getMemberid());
+//                        orgUser.setExUserId(member.getMemberid());
+//                        orgUser.setMemberId(Long.parseLong(userid));
+//                        orgUser.setActionTime(new Date());
+//                        orgUser.setDescription("te");
+//                        orgUser.setExUnitCode("uid=" + memberJson.getString("loginName") + ",ou=" + member.getOu());
+//                        if (null != user) {
+//                            DBAgent.update(orgUser);
+//                        } else {
+//                            DBAgent.save(orgUser);
+//                        }
                     }
 
                 }

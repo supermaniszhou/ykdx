@@ -6,6 +6,8 @@ import java.util.Map;
 
 public interface XzykDao {
 
+    public static boolean debug=true;
+
     List<Map<String, Object>> queryAll(String sql) throws SQLException;
 
     void insertAll(String sql, List<Map<String, Object>> mapList) throws SQLException;
