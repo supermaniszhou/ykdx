@@ -9,27 +9,8 @@ import java.util.stream.Stream;
 
 public class XzykDaoImpl implements XzykDao {
     @Override
-    public List<Map<String, Object>> queryAll(String sql) throws SQLException {
-        List<Map<String, Object>> mapList = new ArrayList<>();
-
-        ResultSet rs = SyncConnectionUtil.getResultSet(sql);
-        Map<String, Object> map = null;
-
-        while (rs.next()) {
-            ResultSetMetaData metaData = rs.getMetaData();
-            int count = metaData.getColumnCount();
-            map = new LinkedHashMap<>();
-            for (int i = 1; i <= count; i++) {
-                String columnName = metaData.getColumnName(i);
-                String value = null == rs.getString(i) ? "" : rs.getString(i);
-                if (null == value && "".equals(value)) {
-                    map.put(columnName, "");
-                } else {
-                    map.put(columnName, value);
-                }
-            }
-            mapList.add(map);
-        }
+    public List<Map<String, Object>> queryAll(String sql) {
+        List<Map<String, Object>> mapList = SyncConnectionUtil.getResultSet(sql);
         return mapList;
     }
 

@@ -8,6 +8,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -145,15 +147,41 @@ public class SyncConnectionUtil {
     }
 
 
-    public static ResultSet getResultSet(String sql) {
-
+    public static List<Map<String, Object>> getResultSet(String sql) {
+        List<Map<String, Object>> mapList = new ArrayList<>();
+        Map<String, Object> map = null;
+        ResultSet rs = null;
         try (Connection connection = getMidConnection();
              PreparedStatement ps = connection.prepareStatement(sql);
-             ResultSet resultSet = ps.executeQuery();
         ) {
-            return resultSet;
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                ResultSetMetaData metaData = rs.getMetaData();
+                int count = metaData.getColumnCount();
+                map = new LinkedHashMap<>();
+                for (int i = 1; i <= count; i++) {
+                    String columnName = metaData.getColumnName(i);
+                    String value = null == rs.getString(i) ? "" : rs.getString(i);
+                    if (null == value && "".equals(value)) {
+                        map.put(columnName, "");
+                    } else {
+                        map.put(columnName, value);
+                    }
+                }
+                mapList.add(map);
+            }
+
+            return mapList;
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            if (null != rs) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return null;
     }

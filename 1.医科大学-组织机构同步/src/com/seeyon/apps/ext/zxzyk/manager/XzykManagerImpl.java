@@ -21,11 +21,11 @@ public class XzykManagerImpl implements XzykManager {
         List<Map<String, Object>> unitListMap = xzykDao.queryAll(unitSql);
         xzykDao.insertAll("V_ORG_UNIT", unitListMap);
 
-        final String prinSql = "select * from USR_DATA.V_ORG_PRINCVIPAL  where IS_ENABLE=1 and IS_DELETED=0";
+        final String prinSql = "select * from USR_DATA.V_ORG_PRINCVIPAL  where IS_ENABLE=1 ";
         List<Map<String, Object>> prinListMap = xzykDao.queryAll(prinSql);
         xzykDao.insertAll("V_ORG_PRINCIPAL", prinListMap);
 
-        final String phoneSql = "select * from USR_DATA.V_JZG_PHONE  where IS_ENABLE=1 and IS_DELETED=0";
+        final String phoneSql = "select * from USR_DATA.V_JZG_PHONE ";
         List<Map<String, Object>> phoneListMap = xzykDao.queryAll(phoneSql);
         xzykDao.insertAll("V_JZG_PHONE", phoneListMap);
 
