@@ -237,7 +237,8 @@ public class OrgMemberDaoImpl implements OrgMemberDao {
                                 JSONArray errorMsgs = (JSONArray) json.get("errorMsgs");
                                 if (obj.size() == 0) {
                                     map = (Map<String, Object>) errorMsgs.get(0);
-                                    logRecord.setOpContent(map.get("code") + ":" + map.get("msgInfo"));
+                                    Map<String, Object> objectMap = (Map<String, Object>) map.get("ent");
+                                    logRecord.setOpContent("姓名：" + objectMap.get("name") + "；编号：" + objectMap.get("code") +"；出错原因："+ map.get("code") + ":" + map.get("msgInfo"));
 
                                 } else {
                                     map = (Map<String, Object>) obj.get(0);
@@ -481,7 +482,8 @@ public class OrgMemberDaoImpl implements OrgMemberDao {
                                 JSONArray errorMsgs = (JSONArray) json.get("errorMsgs");
                                 if (obj.size() == 0) {
                                     map = (Map<String, Object>) errorMsgs.get(0);
-                                    logRecord.setOpContent(map.get("code") + ":" + map.get("msgInfo"));
+                                    Map<String, Object> objectMap = (Map<String, Object>) map.get("ent");
+                                    logRecord.setOpContent("姓名：" + objectMap.get("name") + "；编号：" + objectMap.get("code") +"；出错原因："+ map.get("code") + ":" + map.get("msgInfo"));
 
                                 } else {
                                     map = (Map<String, Object>) obj.get(0);
