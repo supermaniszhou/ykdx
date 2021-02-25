@@ -61,6 +61,9 @@ public class OrgLevelDaoImpl implements OrgLevelDao {
         Connection connection = null;
         PreparedStatement ps = null;
         String insertSql = "insert into M_ORG_LEVEL(id,name,code,description) values (?,?,?,?)";
+
+        ArrayList<Map<String, Object>> levelList = client.get("/orgLevels/" + configTools.getOrgAccountId(), ArrayList.class);
+
         try {
             connection = JDBCAgent.getRawConnection();
             connection.setAutoCommit(false);
@@ -98,12 +101,19 @@ public class OrgLevelDaoImpl implements OrgLevelDao {
                             logRecordDao.saveLogRecord(logRecord);
                             String code = (String) m.get("code");
                             if (code.equals("LEVEL_REPEAT_NAME")) {
-                                String deptid = ment.get("id") + "";
-                                ps.setString(1, deptid);
-                                ps.setString(2, orgLevel.getLevelname());
-                                ps.setString(3, orgLevel.getLevelcode());
-                                ps.setString(4, "");
-                                ps.addBatch();
+                                for (Map<String, Object> levelMap : levelList) {
+                                    String name = (String) levelMap.get("name");
+                                    String repeatname = (String) ment.get("name");
+                                    if (name.equals(repeatname)) {
+                                        String deptid = levelMap.get("id") + "";
+                                        ps.setString(1, deptid);
+                                        ps.setString(2, orgLevel.getLevelname());
+                                        ps.setString(3, null !=((String)levelMap.get("code")) && !"".equals((String)levelMap.get("code"))? (String)levelMap.get("code"):"");
+                                        ps.setString(4, "");
+                                        ps.addBatch();
+                                    }
+                                }
+
                             }
                         }
                     }
