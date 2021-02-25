@@ -1,6 +1,7 @@
 package com.seeyon.apps.ext.zxzyk.dao;
 
-import com.alibaba.fastjson.JSONArray;
+//import com.alibaba.fastjson.JSONArray;
+
 import com.seeyon.apps.ext.logRecord.dao.LogRecordDao;
 import com.seeyon.apps.ext.logRecord.po.LogRecord;
 import com.seeyon.apps.ext.zxzyk.po.OrgLevel;
@@ -9,6 +10,7 @@ import com.seeyon.apps.ext.zxzyk.util.SyncConnectionUtil;
 import com.seeyon.client.CTPRestClient;
 import com.seeyon.ctp.common.AppContext;
 import com.seeyon.ctp.util.JDBCAgent;
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import java.sql.Connection;
@@ -81,8 +83,9 @@ public class OrgLevelDaoImpl implements OrgLevelDao {
                             ps.setString(4, "");
                             ps.addBatch();
                         } else {
-                            JSONArray obj = (JSONArray) json.get("errorMsgInfos");
+                            net.sf.json.JSONArray obj = (net.sf.json.JSONArray) json.get("errorMsgs");
                             Map<String, Object> m = (Map<String, Object>) obj.get(0);
+                            Map<String, Object> ment = (Map<String, Object>) m.get("ent");
                             //记录更新了哪些
                             LogRecord logRecord = new LogRecord();
                             logRecord.setId(System.currentTimeMillis());
@@ -90,9 +93,18 @@ public class OrgLevelDaoImpl implements OrgLevelDao {
                             logRecord.setUpdateDate(new Date());
                             logRecord.setOpType("插入");
                             logRecord.setOpModule("职务级别");
-                            logRecord.setOpContent((String) m.get("msgInfo"));
+                            logRecord.setOpContent(ment.get("name") + "（" + ment.get("code") + "）:" + (String) m.get("code"));
                             logRecord.setOpResult("失败！");
                             logRecordDao.saveLogRecord(logRecord);
+                            String code = (String) m.get("code");
+                            if (code.equals("LEVEL_REPEAT_NAME")) {
+                                String deptid = ment.get("id") + "";
+                                ps.setString(1, deptid);
+                                ps.setString(2, orgLevel.getLevelname());
+                                ps.setString(3, orgLevel.getLevelcode());
+                                ps.setString(4, "");
+                                ps.addBatch();
+                            }
                         }
                     }
                 }
