@@ -38,8 +38,8 @@ public class XzykController extends BaseController {
 
         Map<String, Object> map = new HashMap<>();
         try {
-            xzykManager.clearTable();
-            xzykManager.insertAll();
+//            xzykManager.clearTable();
+//            xzykManager.insertAll();
             //部门
 //            orgDeptManager.insertOtherDept();
 //            orgDeptManager.updateOrgDept();
@@ -49,7 +49,7 @@ public class XzykController extends BaseController {
 //            orgLevelManager.updateOrgLevel();
 //
 //            //人员
-//            orgMemberManager.insertOrgMember();
+            orgMemberManager.insertOrgMember();
 //            orgMemberManager.updateOrgMember();
 
             //跟新人员启用状态

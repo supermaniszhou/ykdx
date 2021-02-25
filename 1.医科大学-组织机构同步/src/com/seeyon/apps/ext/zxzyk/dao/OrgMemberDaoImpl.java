@@ -1,12 +1,16 @@
 package com.seeyon.apps.ext.zxzyk.dao;
 
+import com.seeyon.apps.ext.logRecord.dao.LogRecordDao;
+import com.seeyon.apps.ext.logRecord.po.LogRecord;
 import com.seeyon.apps.ext.zxzyk.po.CtpOrgUser;
 import com.seeyon.apps.ext.zxzyk.po.OrgMember;
 import com.seeyon.apps.ext.zxzyk.util.ReadConfigTools;
 import com.seeyon.apps.ext.zxzyk.util.SyncConnectionUtil;
 import com.seeyon.client.CTPRestClient;
+import com.seeyon.ctp.common.AppContext;
 import com.seeyon.ctp.util.DBAgent;
 import com.seeyon.ctp.util.JDBCAgent;
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import java.sql.Connection;
@@ -18,6 +22,9 @@ import java.util.*;
 public class OrgMemberDaoImpl implements OrgMemberDao {
 
     private ReadConfigTools configTools = new ReadConfigTools();
+
+    private LogRecordDao logRecordDao = (LogRecordDao) AppContext.getBean("logRecordDao");
+
 
     @Override
     public List<OrgMember> queryNoEnableMember() throws SQLException {
@@ -217,6 +224,18 @@ public class OrgMemberDaoImpl implements OrgMemberDao {
 //                                orgUser.setDescription("te");
 //                                orgUser.setExUnitCode("uid=" + ent.getString("loginName") + ",ou=" + member.getOu());
 //                                DBAgent.save(orgUser);
+                            } else {
+                                JSONArray obj = (JSONArray) json.get("errorMsgInfos");
+                                Map<String, Object> map = (Map<String, Object>) obj.get(0);
+                                //记录更新了哪些
+                                LogRecord logRecord = new LogRecord();
+                                logRecord.setId(System.currentTimeMillis());
+                                logRecord.setUpdateUser("自动同步");
+                                logRecord.setUpdateDate(new Date());
+                                logRecord.setOpType("插入");
+                                logRecord.setOpContent((String) map.get("msgInfo"));
+                                logRecord.setOpResult("失败！");
+                                logRecordDao.saveLogRecord(logRecord);
                             }
                         }
                     } else {
@@ -299,9 +318,9 @@ public class OrgMemberDaoImpl implements OrgMemberDao {
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
-            if(XzykDao.debug){
+            if (XzykDao.debug) {
                 ps = connection.prepareStatement(jinZhiSql);
-            }else{
+            } else {
                 ps = connection.prepareStatement(sql);
             }
             rs = ps.executeQuery();
