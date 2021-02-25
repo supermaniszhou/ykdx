@@ -527,6 +527,19 @@ public class OrgMemberDaoImpl implements OrgMemberDao {
 
                         if (jsonObject.getBoolean("success")) {
                             dsql.append(",'" + member.getMemberid() + "'");
+                        }else{
+                            JSONArray obj = (JSONArray) jsonObject.get("errorMsgInfos");
+                            Map<String, Object> m = (Map<String, Object>) obj.get(0);
+                            //记录更新了哪些
+                            LogRecord logRecord = new LogRecord();
+                            logRecord.setId(System.currentTimeMillis());
+                            logRecord.setUpdateUser("自动同步");
+                            logRecord.setUpdateDate(new Date());
+                            logRecord.setOpType("删除");
+                            logRecord.setOpModule("人员");
+                            logRecord.setOpContent((String) m.get("msgInfo"));
+                            logRecord.setOpResult("失败！");
+                            logRecordDao.saveLogRecord(logRecord);
                         }
                     } else {
                         dsql.append(",'" + member.getMemberid() + "'");
