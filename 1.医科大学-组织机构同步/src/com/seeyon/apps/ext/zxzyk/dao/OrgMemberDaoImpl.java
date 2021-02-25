@@ -233,6 +233,7 @@ public class OrgMemberDaoImpl implements OrgMemberDao {
                                 logRecord.setUpdateUser("自动同步");
                                 logRecord.setUpdateDate(new Date());
                                 logRecord.setOpType("插入");
+                                logRecord.setOpModule("人员");
                                 logRecord.setOpContent((String) map.get("msgInfo"));
                                 logRecord.setOpResult("失败！");
                                 logRecordDao.saveLogRecord(logRecord);
@@ -457,6 +458,19 @@ public class OrgMemberDaoImpl implements OrgMemberDao {
                                 sql = sql + " where id = '" + member.getMemberid() + "' ";
 
                                 SyncConnectionUtil.insertResult(sql);
+                            }else{
+                                JSONArray obj = (JSONArray) json.get("errorMsgInfos");
+                                Map<String, Object> map = (Map<String, Object>) obj.get(0);
+                                //记录更新了哪些
+                                LogRecord logRecord = new LogRecord();
+                                logRecord.setId(System.currentTimeMillis());
+                                logRecord.setUpdateUser("自动同步");
+                                logRecord.setUpdateDate(new Date());
+                                logRecord.setOpType("修改");
+                                logRecord.setOpModule("人员");
+                                logRecord.setOpContent((String) map.get("msgInfo"));
+                                logRecord.setOpResult("失败！");
+                                logRecordDao.saveLogRecord(logRecord);
                             }
                         }
                     } else {
