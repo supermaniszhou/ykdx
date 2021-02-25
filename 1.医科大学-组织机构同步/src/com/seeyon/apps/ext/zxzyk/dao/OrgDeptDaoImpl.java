@@ -1,11 +1,14 @@
 package com.seeyon.apps.ext.zxzyk.dao;
 
 import com.alibaba.fastjson.JSONArray;
+import com.seeyon.apps.ext.logRecord.dao.LogRecordDao;
+import com.seeyon.apps.ext.logRecord.po.LogRecord;
 import com.seeyon.apps.ext.zxzyk.po.OrgDept;
 import com.seeyon.apps.ext.zxzyk.util.ReadConfigTools;
 import com.seeyon.apps.ext.zxzyk.util.SyncConnectionUtil;
 import com.seeyon.apps.ext.zxzyk.util.TreeUtil;
 import com.seeyon.client.CTPRestClient;
+import com.seeyon.ctp.common.AppContext;
 import com.seeyon.ctp.util.JDBCAgent;
 import net.sf.json.JSONObject;
 import org.slf4j.Logger;
@@ -15,10 +18,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Administrator on 2019-7-29.
@@ -27,6 +27,8 @@ public class OrgDeptDaoImpl implements OrgDeptDao {
 
     private Logger log = LoggerFactory.getLogger(OrgDeptDaoImpl.class);
     private ReadConfigTools tools = new ReadConfigTools();
+
+    private LogRecordDao logRecordDao = (LogRecordDao) AppContext.getBean("logRecordDao");
 
     @Override
     public List<OrgDept> queryByFirstDept() throws SQLException {
@@ -148,6 +150,19 @@ public class OrgDeptDaoImpl implements OrgDeptDao {
                                 ps.setString(6, "1");
                                 ps.setString(7, "0");
                                 ps.addBatch();
+                            }else{
+                                JSONArray obj = (JSONArray) json.get("errorMsgInfos");
+                                Map<String, Object> m = (Map<String, Object>) obj.get(0);
+                                //记录更新了哪些
+                                LogRecord logRecord = new LogRecord();
+                                logRecord.setId(System.currentTimeMillis());
+                                logRecord.setUpdateUser("自动同步");
+                                logRecord.setUpdateDate(new Date());
+                                logRecord.setOpType("插入");
+                                logRecord.setOpModule("部门");
+                                logRecord.setOpContent((String) m.get("msgInfo"));
+                                logRecord.setOpResult("失败！");
+                                logRecordDao.saveLogRecord(logRecord);
                             }
                         }
                     } else {
@@ -295,6 +310,19 @@ public class OrgDeptDaoImpl implements OrgDeptDao {
                     if (null != json) {
                         if (json.getBoolean("success")) {
                             sb.append("," + dept.getDeptid());
+                        }else{
+                            JSONArray obj = (JSONArray) json.get("errorMsgInfos");
+                            Map<String, Object> m = (Map<String, Object>) obj.get(0);
+                            //记录更新了哪些
+                            LogRecord logRecord = new LogRecord();
+                            logRecord.setId(System.currentTimeMillis());
+                            logRecord.setUpdateUser("自动同步");
+                            logRecord.setUpdateDate(new Date());
+                            logRecord.setOpType("删除");
+                            logRecord.setOpModule("部门");
+                            logRecord.setOpContent((String) m.get("msgInfo"));
+                            logRecord.setOpResult("失败！");
+                            logRecordDao.saveLogRecord(logRecord);
                         }
                     }
 
@@ -377,6 +405,19 @@ public class OrgDeptDaoImpl implements OrgDeptDao {
                             }
                             updateSql.append(" where id = '" + dept.getDeptid() + "' ");
                             SyncConnectionUtil.insertResult(updateSql.toString());
+                        }else{
+                            JSONArray obj = (JSONArray) json.get("errorMsgInfos");
+                            Map<String, Object> m = (Map<String, Object>) obj.get(0);
+                            //记录更新了哪些
+                            LogRecord logRecord = new LogRecord();
+                            logRecord.setId(System.currentTimeMillis());
+                            logRecord.setUpdateUser("自动同步");
+                            logRecord.setUpdateDate(new Date());
+                            logRecord.setOpType("修改");
+                            logRecord.setOpModule("部门");
+                            logRecord.setOpContent((String) m.get("msgInfo"));
+                            logRecord.setOpResult("失败！");
+                            logRecordDao.saveLogRecord(logRecord);
                         }
                     }
 

@@ -1,9 +1,13 @@
 package com.seeyon.apps.ext.zxzyk.dao;
 
+import com.alibaba.fastjson.JSONArray;
+import com.seeyon.apps.ext.logRecord.dao.LogRecordDao;
+import com.seeyon.apps.ext.logRecord.po.LogRecord;
 import com.seeyon.apps.ext.zxzyk.po.OrgLevel;
 import com.seeyon.apps.ext.zxzyk.util.ReadConfigTools;
 import com.seeyon.apps.ext.zxzyk.util.SyncConnectionUtil;
 import com.seeyon.client.CTPRestClient;
+import com.seeyon.ctp.common.AppContext;
 import com.seeyon.ctp.util.JDBCAgent;
 import net.sf.json.JSONObject;
 
@@ -11,14 +15,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class OrgLevelDaoImpl implements OrgLevelDao {
 
     private ReadConfigTools configTools = new ReadConfigTools();
+
+    private LogRecordDao logRecordDao = (LogRecordDao) AppContext.getBean("logRecordDao");
+
 
     @Override
     public List<OrgLevel> queryOrgLevel() throws SQLException {
@@ -76,6 +80,19 @@ public class OrgLevelDaoImpl implements OrgLevelDao {
                             ps.setString(3, orgLevel.getLevelcode());
                             ps.setString(4, "");
                             ps.addBatch();
+                        } else {
+                            JSONArray obj = (JSONArray) json.get("errorMsgInfos");
+                            Map<String, Object> m = (Map<String, Object>) obj.get(0);
+                            //记录更新了哪些
+                            LogRecord logRecord = new LogRecord();
+                            logRecord.setId(System.currentTimeMillis());
+                            logRecord.setUpdateUser("自动同步");
+                            logRecord.setUpdateDate(new Date());
+                            logRecord.setOpType("插入");
+                            logRecord.setOpModule("职务级别");
+                            logRecord.setOpContent((String) m.get("msgInfo"));
+                            logRecord.setOpResult("失败！");
+                            logRecordDao.saveLogRecord(logRecord);
                         }
                     }
                 }
@@ -96,7 +113,7 @@ public class OrgLevelDaoImpl implements OrgLevelDao {
         String sql = "select VL.CODE,VL.name,ML.ID from V_ORG_LEVEL vl,M_ORG_LEVEL ml where VL.code =ML.code and VL.name <> ML.NAME";
         ResultSet rs = null;
         Connection connection = JDBCAgent.getRawConnection();
-        
+
         PreparedStatement ps = null;
         try {
             ps = connection.prepareStatement(sql);
@@ -138,6 +155,19 @@ public class OrgLevelDaoImpl implements OrgLevelDao {
                     if (null != json) {
                         if (json.getBoolean("success")) {
                             sql = sql.concat("name='" + orgLevel.getLevelname() + "' where id=" + orgLevel.getLevelid());
+                        } else {
+                            JSONArray obj = (JSONArray) json.get("errorMsgInfos");
+                            Map<String, Object> m = (Map<String, Object>) obj.get(0);
+                            //记录更新了哪些
+                            LogRecord logRecord = new LogRecord();
+                            logRecord.setId(System.currentTimeMillis());
+                            logRecord.setUpdateUser("自动同步");
+                            logRecord.setUpdateDate(new Date());
+                            logRecord.setOpType("修改");
+                            logRecord.setOpModule("职务级别");
+                            logRecord.setOpContent((String) m.get("msgInfo"));
+                            logRecord.setOpResult("失败！");
+                            logRecordDao.saveLogRecord(logRecord);
                         }
                     }
                     SyncConnectionUtil.insertResult(sql);
@@ -198,6 +228,19 @@ public class OrgLevelDaoImpl implements OrgLevelDao {
                             sql = sql.concat("id='" + orgLevel.getLevelid() + "'");
                             SyncConnectionUtil.insertResult(sql);
 
+                        } else {
+                            JSONArray obj = (JSONArray) json.get("errorMsgInfos");
+                            Map<String, Object> m = (Map<String, Object>) obj.get(0);
+                            //记录更新了哪些
+                            LogRecord logRecord = new LogRecord();
+                            logRecord.setId(System.currentTimeMillis());
+                            logRecord.setUpdateUser("自动同步");
+                            logRecord.setUpdateDate(new Date());
+                            logRecord.setOpType("删除");
+                            logRecord.setOpModule("职务级别");
+                            logRecord.setOpContent((String) m.get("msgInfo"));
+                            logRecord.setOpResult("失败！");
+                            logRecordDao.saveLogRecord(logRecord);
                         }
                     }
                 }
@@ -205,7 +248,6 @@ public class OrgLevelDaoImpl implements OrgLevelDao {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-
         }
     }
 }

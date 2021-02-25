@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="816d8994-cada-4cd0-be87-e236d8acd877" name="Default Changelist" comment="">
+    <list default="true" id="816d8994-cada-4cd0-be87-e236d8acd877" name="Default Changelist" comment="update">
+      <change afterPath="$PROJECT_DIR$/.idea/qaplug_profiles.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/manager/OrgMemberManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/manager/OrgMemberManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/manager/OrgMemberManagerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/manager/OrgMemberManagerImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/xzyk.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/xzyk.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/controller/XzykController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/controller/XzykController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/dao/OrgDeptDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/dao/OrgDeptDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/dao/OrgLevelDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/dao/OrgLevelDaoImpl.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -67,29 +71,34 @@
     <property name="DatabaseDriversLRU" value="oracle" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="F:/a8_code/A-8-code/矿业大学_组织机构同步" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/sql文件及说明" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/seeyon/WEB-INF/cfgHome/metadata/menu-AccountAdmin-Enterprise-2.xml" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\javaTool\code\xzyk\seeyon\WEB-INF" />
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\0.项目代码\5.医科大学\ykdx\1.医科大学-组织机构同步\sql文件及说明" />
+      <recent name="F:\0.项目代码\5.医科大学\ykdx\1.医科大学-组织机构同步\seeyon\WEB-INF\jsp\apps\ext" />
+      <recent name="F:\0.项目代码\5.医科大学\ykdx\1.医科大学-组织机构同步\seeyon\WEB-INF\cfgHome\plugin" />
+      <recent name="F:\0.项目代码\5.医科大学\ykdx\1.医科大学-组织机构同步\seeyon\WEB-INF\lib" />
+      <recent name="D:\javaTool\code\xzyk\src\com\seeyon\ctp\common\web\filter" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.seeyon.apps.ext.xzyk.util" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="F:\0.项目代码\5.医科大学\ykdx\1.医科大学-组织机构同步\seeyon\WEB-INF\lib" />
-      <recent name="D:\javaTool\code\xzyk\src\com\seeyon\ctp\common\web\filter" />
-      <recent name="D:\javaTool\code\xzyk\seeyon\WEB-INF\jsp\apps\ext\zxzyk" />
-      <recent name="D:\javaTool\code\xzyk\seeyon\WEB-INF\cfgHome\metadata" />
-      <recent name="D:\javaTool\code\xzyk" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\javaTool\code\xzyk\seeyon\WEB-INF" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -313,12 +322,17 @@
           <expand>
             <path>
               <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@e95681db" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@ccd17955" type="7427dc5b:ServiceModel$ServiceGroupNode" />
             </path>
             <path>
               <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@e95681db" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@3ebe7405" type="9fbbdea:ServiceModel$ServiceNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@ccd17955" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@33fb60d9" type="9fbbdea:ServiceModel$ServiceNode" />
+            </path>
+            <path>
+              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@ccd17955" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@2b00e629" type="9fbbdea:ServiceModel$ServiceNode" />
             </path>
           </expand>
           <select />
@@ -383,49 +397,14 @@
       <workItem from="1612259155602" duration="1198000" />
       <workItem from="1612312914503" duration="13170000" />
       <workItem from="1612506526785" duration="10084000" />
-      <workItem from="1612660456900" duration="28741000" />
-    </task>
-    <task id="LOCAL-00001" summary="update">
-      <created>1612172464071</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1612172464071</updated>
-    </task>
-    <task id="LOCAL-00002" summary="update">
-      <created>1612173864853</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1612173864853</updated>
-    </task>
-    <task id="LOCAL-00003" summary="update">
-      <created>1612173916909</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1612173916909</updated>
-    </task>
-    <task id="LOCAL-00004" summary="update">
-      <created>1612227514726</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1612227514726</updated>
-    </task>
-    <task id="LOCAL-00005" summary="update">
-      <created>1612260325518</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1612260325518</updated>
-    </task>
-    <task id="LOCAL-00006" summary="update">
-      <created>1612315133022</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1612315133022</updated>
+      <workItem from="1612660456900" duration="37371000" />
+      <workItem from="1612832669313" duration="4121000" />
+      <workItem from="1613954635197" duration="959000" />
+      <workItem from="1613958012980" duration="2093000" />
+      <workItem from="1614072881395" duration="1299000" />
+      <workItem from="1614127075889" duration="84000" />
+      <workItem from="1614146054176" duration="13350000" />
+      <workItem from="1614213201093" duration="9729000" />
     </task>
     <task id="LOCAL-00007" summary="update">
       <created>1612318893636</created>
@@ -637,7 +616,140 @@
       <option name="project" value="LOCAL" />
       <updated>1612755190085</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="update">
+      <created>1612755415424</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1612755415424</updated>
+    </task>
+    <task id="LOCAL-00038" summary="update">
+      <created>1612833875965</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1612833875965</updated>
+    </task>
+    <task id="LOCAL-00039" summary="update">
+      <created>1612835505986</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1612835505986</updated>
+    </task>
+    <task id="LOCAL-00040" summary="update">
+      <created>1612836270260</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1612836270260</updated>
+    </task>
+    <task id="LOCAL-00041" summary="update">
+      <created>1614150444630</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1614150444630</updated>
+    </task>
+    <task id="LOCAL-00042" summary="update">
+      <created>1614150528415</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1614150528415</updated>
+    </task>
+    <task id="LOCAL-00043" summary="update">
+      <created>1614150648202</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1614150648202</updated>
+    </task>
+    <task id="LOCAL-00044" summary="update">
+      <created>1614150680609</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1614150680609</updated>
+    </task>
+    <task id="LOCAL-00045" summary="update">
+      <created>1614152099322</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1614152099322</updated>
+    </task>
+    <task id="LOCAL-00046" summary="update">
+      <created>1614154245115</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1614154245115</updated>
+    </task>
+    <task id="LOCAL-00047" summary="update">
+      <created>1614154475909</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1614154475909</updated>
+    </task>
+    <task id="LOCAL-00048" summary="update">
+      <created>1614154747021</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1614154747021</updated>
+    </task>
+    <task id="LOCAL-00049" summary="update">
+      <created>1614157096717</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1614157096717</updated>
+    </task>
+    <task id="LOCAL-00050" summary="update">
+      <created>1614160118727</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1614160118728</updated>
+    </task>
+    <task id="LOCAL-00051" summary="update">
+      <created>1614219966520</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1614219966521</updated>
+    </task>
+    <task id="LOCAL-00052" summary="update">
+      <created>1614220239780</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1614220239780</updated>
+    </task>
+    <task id="LOCAL-00053" summary="update">
+      <created>1614222819451</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1614222819451</updated>
+    </task>
+    <task id="LOCAL-00054" summary="update">
+      <created>1614222982436</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1614222982436</updated>
+    </task>
+    <task id="LOCAL-00055" summary="update">
+      <created>1614223006863</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1614223006863</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -696,29 +808,44 @@
           <option name="timeStamp" value="129" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/dao/OrgMemberDaoImpl.java</url>
-          <line>61</line>
-          <option name="timeStamp" value="137" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/dao/XzykDaoImpl.java</url>
-          <line>37</line>
-          <option name="timeStamp" value="147" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/dao/XzykDaoImpl.java</url>
-          <line>52</line>
-          <option name="timeStamp" value="148" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/dao/XzykDaoImpl.java</url>
-          <line>78</line>
-          <option name="timeStamp" value="152" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/dao/OrgLevelDaoImpl.java</url>
-          <line>185</line>
+          <line>215</line>
           <option name="timeStamp" value="180" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/manager/XzykManagerImpl.java</url>
+          <line>33</line>
+          <option name="timeStamp" value="192" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/manager/XzykManagerImpl.java</url>
+          <line>20</line>
+          <option name="timeStamp" value="195" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/manager/XzykManagerImpl.java</url>
+          <line>44</line>
+          <option name="timeStamp" value="198" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/dao/OrgMemberDaoImpl.java</url>
+          <line>227</line>
+          <option name="timeStamp" value="199" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/dao/OrgMemberDaoImpl.java</url>
+          <line>242</line>
+          <option name="timeStamp" value="200" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/dao/OrgMemberDaoImpl.java</url>
+          <line>459</line>
+          <option name="timeStamp" value="202" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/seeyon/apps/ext/zxzyk/dao/OrgMemberDaoImpl.java</url>
+          <line>513</line>
+          <option name="timeStamp" value="203" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
