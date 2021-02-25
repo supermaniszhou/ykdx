@@ -107,7 +107,7 @@ public class OrgLevelDaoImpl implements OrgLevelDao {
                                     if (name.equals(repeatname)) {
                                         String deptid = levelMap.get("id") + "";
                                         ps.setString(1, deptid);
-                                        ps.setString(2, orgLevel.getLevelname());
+                                        ps.setString(2, levelMap.get("name")+"");
                                         ps.setString(3, null !=((String)levelMap.get("code")) && !"".equals((String)levelMap.get("code"))? (String)levelMap.get("code"):"");
                                         ps.setString(4, "");
                                         ps.addBatch();
