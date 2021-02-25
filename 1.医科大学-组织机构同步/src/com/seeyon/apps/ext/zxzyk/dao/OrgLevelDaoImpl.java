@@ -87,7 +87,7 @@ public class OrgLevelDaoImpl implements OrgLevelDao {
                             ps.setString(4, "");
                             ps.addBatch();
                         } else {
-                            net.sf.json.JSONArray obj = (net.sf.json.JSONArray) json.get("errorMsgs");
+                            JSONArray obj = (JSONArray) json.get("errorMsgs");
                             Map<String, Object> m = (Map<String, Object>) obj.get(0);
                             Map<String, Object> ment = (Map<String, Object>) m.get("ent");
                             //记录更新了哪些

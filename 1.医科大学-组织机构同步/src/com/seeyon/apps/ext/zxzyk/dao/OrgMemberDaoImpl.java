@@ -225,16 +225,27 @@ public class OrgMemberDaoImpl implements OrgMemberDao {
 //                                orgUser.setExUnitCode("uid=" + ent.getString("loginName") + ",ou=" + member.getOu());
 //                                DBAgent.save(orgUser);
                             } else {
-                                JSONArray obj = (JSONArray) json.get("errorMsgInfos");
-                                Map<String, Object> map = (Map<String, Object>) obj.get(0);
-                                //记录更新了哪些
                                 LogRecord logRecord = new LogRecord();
                                 logRecord.setId(System.currentTimeMillis());
                                 logRecord.setUpdateUser("自动同步");
                                 logRecord.setUpdateDate(new Date());
                                 logRecord.setOpType("插入");
                                 logRecord.setOpModule("人员");
-                                logRecord.setOpContent((String) map.get("msgInfo"));
+
+                                JSONArray obj = (JSONArray) json.get("errorMsgInfos");
+                                Map<String, Object> map = null;
+                                JSONArray errorMsgs = (JSONArray) json.get("errorMsgs");
+                                if (obj.size() == 0) {
+                                    map = (Map<String, Object>) errorMsgs.get(0);
+                                    logRecord.setOpContent(map.get("code") + ":" + map.get("msgInfo"));
+
+                                } else {
+                                    map = (Map<String, Object>) obj.get(0);
+                                    logRecord.setOpContent((String) map.get("msgInfo"));
+
+                                }
+                                //记录更新了哪些
+
                                 logRecord.setOpResult("失败！");
                                 logRecordDao.saveLogRecord(logRecord);
                             }
@@ -458,17 +469,27 @@ public class OrgMemberDaoImpl implements OrgMemberDao {
                                 sql = sql + " where id = '" + member.getMemberid() + "' ";
 
                                 SyncConnectionUtil.insertResult(sql);
-                            }else{
-                                JSONArray obj = (JSONArray) json.get("errorMsgInfos");
-                                Map<String, Object> map = (Map<String, Object>) obj.get(0);
-                                //记录更新了哪些
+                            } else {
                                 LogRecord logRecord = new LogRecord();
                                 logRecord.setId(System.currentTimeMillis());
                                 logRecord.setUpdateUser("自动同步");
                                 logRecord.setUpdateDate(new Date());
                                 logRecord.setOpType("修改");
                                 logRecord.setOpModule("人员");
-                                logRecord.setOpContent((String) map.get("msgInfo"));
+                                JSONArray obj = (JSONArray) json.get("errorMsgInfos");
+                                Map<String, Object> map = null;
+                                JSONArray errorMsgs = (JSONArray) json.get("errorMsgs");
+                                if (obj.size() == 0) {
+                                    map = (Map<String, Object>) errorMsgs.get(0);
+                                    logRecord.setOpContent(map.get("code") + ":" + map.get("msgInfo"));
+
+                                } else {
+                                    map = (Map<String, Object>) obj.get(0);
+                                    logRecord.setOpContent((String) map.get("msgInfo"));
+
+                                }
+                                //记录更新了哪些
+
                                 logRecord.setOpResult("失败！");
                                 logRecordDao.saveLogRecord(logRecord);
                             }
@@ -527,7 +548,7 @@ public class OrgMemberDaoImpl implements OrgMemberDao {
 
                         if (jsonObject.getBoolean("success")) {
                             dsql.append(",'" + member.getMemberid() + "'");
-                        }else{
+                        } else {
                             JSONArray obj = (JSONArray) jsonObject.get("errorMsgInfos");
                             Map<String, Object> m = (Map<String, Object>) obj.get(0);
                             //记录更新了哪些
