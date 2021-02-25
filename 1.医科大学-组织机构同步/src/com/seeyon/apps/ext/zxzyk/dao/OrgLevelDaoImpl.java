@@ -5,6 +5,7 @@ package com.seeyon.apps.ext.zxzyk.dao;
 import com.seeyon.apps.ext.logRecord.dao.LogRecordDao;
 import com.seeyon.apps.ext.logRecord.po.LogRecord;
 import com.seeyon.apps.ext.zxzyk.po.OrgLevel;
+import com.seeyon.apps.ext.zxzyk.util.JDBCUtil;
 import com.seeyon.apps.ext.zxzyk.util.ReadConfigTools;
 import com.seeyon.apps.ext.zxzyk.util.SyncConnectionUtil;
 import com.seeyon.client.CTPRestClient;
@@ -106,11 +107,16 @@ public class OrgLevelDaoImpl implements OrgLevelDao {
                                     String repeatname = (String) ment.get("name");
                                     if (name.equals(repeatname)) {
                                         String deptid = levelMap.get("id") + "";
-                                        ps.setString(1, deptid);
-                                        ps.setString(2, levelMap.get("name")+"");
-                                        ps.setString(3, null !=((String)levelMap.get("code")) && !"".equals((String)levelMap.get("code"))? (String)levelMap.get("code"):"");
-                                        ps.setString(4, "");
-                                        ps.addBatch();
+
+                                        String sql = "select * from M_ORG_LEVEL where id =" + deptid;
+                                        List<Map<String, Object>> list1 = JDBCUtil.doQuery(sql);
+                                        if (list1.size() == 0) {
+                                            ps.setString(1, deptid);
+                                            ps.setString(2, levelMap.get("name") + "");
+                                            ps.setString(3, orgLevel.getLevelcode());
+                                            ps.setString(4, "");
+                                            ps.addBatch();
+                                        }
                                     }
                                 }
 
