@@ -38,26 +38,25 @@ public class XzykController extends BaseController {
 
         Map<String, Object> map = new HashMap<>();
         try {
-//            xzykManager.clearTable();
-//            xzykManager.insertAll();
+            xzykManager.clearTable();
+            xzykManager.insertAll();
             //部门
             orgDeptManager.insertOtherDept();
             orgDeptManager.updateOrgDept();
-//
             //职级
             orgLevelManager.insertOrgLevel();
             orgLevelManager.updateOrgLevel();
 //
             //人员
             orgMemberManager.insertOrgMember();
-//            orgMemberManager.updateOrgMember();
+            orgMemberManager.updateOrgMember();
 
             //跟新人员启用状态
 //            /**orgMemberManager.updateEnableOrgmember();*/
 
-//            orgDeptManager.deleteOrgDept();
-//            orgMemberManager.deleteOrgMember();
-//            orgLevelManager.deleteNotExistLevel();
+            orgDeptManager.deleteOrgDept();
+            orgMemberManager.deleteOrgMember();
+            orgLevelManager.deleteNotExistLevel();
             map.put("code", 0);
             map.put("msg", "success");
         } catch (Exception e) {
