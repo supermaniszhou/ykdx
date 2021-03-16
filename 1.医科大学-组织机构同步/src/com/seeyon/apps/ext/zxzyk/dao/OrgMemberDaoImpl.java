@@ -448,13 +448,14 @@ public class OrgMemberDaoImpl implements OrgMemberDao {
                         JSONObject json = client.put("/orgMember", memberMap, JSONObject.class);
                         if (null != json) {
                             if (json.getBoolean("success")) {
-                                JSONObject ent = json.getJSONArray("successMsgs").getJSONObject(0).getJSONObject("ent");
-                                String userid = ent.getString("id");
+                                updateCommon(member,json);
+                            } else {
+                                String userid = memberJson.getString("id");
                                 CtpOrgUser user = DBAgent.get(CtpOrgUser.class, Long.parseLong(userid));
                                 CtpOrgUser orgUser = new CtpOrgUser();
                                 orgUser.setId(Long.parseLong(userid));
                                 orgUser.setType("ldap.member.openLdap");
-                                orgUser.setLoginName(ent.getString("loginName"));
+                                orgUser.setLoginName(memberJson.getString("loginName"));
                                 orgUser.setExLoginName(member.getMembercode());
                                 orgUser.setExPassword("1");
                                 orgUser.setExId(member.getMemberid());
@@ -462,7 +463,7 @@ public class OrgMemberDaoImpl implements OrgMemberDao {
                                 orgUser.setMemberId(Long.parseLong(userid));
                                 orgUser.setActionTime(new Date());
                                 orgUser.setDescription("te");
-                                orgUser.setExUnitCode("uid=" + ent.getString("loginName") + ",ou=" + member.getOu());
+                                orgUser.setExUnitCode("uid=" + memberJson.getString("loginName") + ",ou=" + member.getOu());
                                 if (null != user) {
                                     DBAgent.update(orgUser);
                                 } else {
@@ -521,36 +522,11 @@ public class OrgMemberDaoImpl implements OrgMemberDao {
 
                                 sql = sql + " where id = '" + member.getMemberid() + "' ";
 
-                                SyncConnectionUtil.insertResult(sql);
-                            } else {
-                                JSONArray obj = (JSONArray) json.get("errorMsgInfos");
-                                JSONArray obj2 = (JSONArray) json.get("errorMsgs");
-                                Map<String, Object> map = null;
-                                if (obj.size() > 0) {
-                                    map = (Map<String, Object>) obj.get(0);
-                                } else {
-                                    map = (Map<String, Object>) obj2.get(0);
+                                try {
+                                    SyncConnectionUtil.insertResult(sql);
+                                } catch (SQLException e) {
+                                    e.printStackTrace();
                                 }
-                                //记录更新了哪些
-//                                LogRecord logRecord = new LogRecord();
-//                                logRecord.setId(System.currentTimeMillis());
-//                                logRecord.setUpdateUser("自动同步");
-//                                logRecord.setUpdateDate(new Date());
-//                                logRecord.setOpType("修改");
-//                                logRecord.setOpModule("人员");
-//                                Map<String, Object> m =null;
-//                                if(null != map.get("ent")){
-//                                    m= (Map<String, Object>) map.get("ent");
-//                                }
-//                                StringBuffer sb = new StringBuffer();
-//                                StringBuffer info = new StringBuffer();
-//                                if (null != m) {
-//                                    info.append(m.get("name") + "(" + m.get("code") + ")");
-//                                }
-//                                sb.append("被修改的人员:" + member.getMembername() + "(" + member.getMembercode() + ")" + map.get("code") + ";" + info.toString());
-//                                logRecord.setOpContent(sb.toString());
-//                                logRecord.setOpResult("失败！");
-//                                logRecordDao.saveLogRecord(logRecord);
                             }
                         }
                     } else {
@@ -559,6 +535,87 @@ public class OrgMemberDaoImpl implements OrgMemberDao {
                 }
             }
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateCommon(OrgMember member,JSONObject json){
+        JSONObject ent = json.getJSONArray("successMsgs").getJSONObject(0).getJSONObject("ent");
+        String userid = ent.getString("id");
+        CtpOrgUser user = DBAgent.get(CtpOrgUser.class, Long.parseLong(userid));
+        CtpOrgUser orgUser = new CtpOrgUser();
+        orgUser.setId(Long.parseLong(userid));
+        orgUser.setType("ldap.member.openLdap");
+        orgUser.setLoginName(ent.getString("loginName"));
+        orgUser.setExLoginName(member.getMembercode());
+        orgUser.setExPassword("1");
+        orgUser.setExId(member.getMemberid());
+        orgUser.setExUserId(member.getMemberid());
+        orgUser.setMemberId(Long.parseLong(userid));
+        orgUser.setActionTime(new Date());
+        orgUser.setDescription("te");
+        orgUser.setExUnitCode("uid=" + ent.getString("loginName") + ",ou=" + member.getOu());
+        if (null != user) {
+            DBAgent.update(orgUser);
+        } else {
+            DBAgent.save(orgUser);
+        }
+
+
+        String sql = "update m_org_member set ";
+        if (member.getMembername() != null && !"".equals(member.getMembername())) {
+            sql = sql + " name = '" + member.getMembername() + "', ";
+        } else {
+            sql = sql + " name = '', ";
+        }
+
+        if (member.getOrgDepartmentId() != null && !"".equals(member.getOrgDepartmentId())) {
+            sql = sql + " org_department_id = '" + member.getOrgDepartmentId() + "', ";
+        } else {
+            sql = sql + " org_department_id = '', ";
+        }
+
+        if (member.getOrgPostId() != null && !"".equals(member.getOrgPostId())) {
+            sql = sql + " org_post_id = '" + member.getOrgPostId() + "', ";
+        } else {
+            sql = sql + " org_post_id = '', ";
+        }
+
+        if (member.getOrgLevelId() != null && !"".equals(member.getOrgLevelId())) {
+            sql = sql + " org_level_id = '" + member.getOrgLevelId() + "', ";
+        } else {
+            sql = sql + " org_level_id = '', ";
+        }
+
+        if (member.getDescription() != null && !"".equals(member.getDescription())) {
+            sql = sql + " description = '" + member.getDescription() + "', ";
+        } else {
+            sql = sql + " description = '', ";
+        }
+
+        if (member.getOu() != null && !"".equals(member.getOu())) {
+            sql = sql + " ou = '" + member.getOu() + "', ";
+        } else {
+            sql = sql + " ou = '', ";
+        }
+
+        if (member.getP1() != null && !"".equals(member.getP1())) {
+            sql = sql + " is_enable = '" + member.getP1() + "', ";
+        } else {
+            sql = sql + " is_enable = '', ";
+        }
+
+        if (member.getTelNumber() != null && !"".equals(member.getTelNumber())) {
+            sql = sql + " mobile = '" + member.getTelNumber() + "' ";
+        } else {
+            sql = sql + " mobile = '' ";
+        }
+
+        sql = sql + " where id = '" + member.getMemberid() + "' ";
+
+        try {
+            SyncConnectionUtil.insertResult(sql);
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
