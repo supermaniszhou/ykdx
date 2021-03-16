@@ -151,26 +151,18 @@ public class OrgDeptDaoImpl implements OrgDeptDao {
                                 ps.setString(7, "0");
                                 ps.addBatch();
                             }else{
-                                //记录更新了哪些
-                                LogRecord logRecord = new LogRecord();
-                                logRecord.setId(System.currentTimeMillis());
-                                logRecord.setUpdateUser("自动同步");
-                                logRecord.setUpdateDate(new Date());
-                                logRecord.setOpType("插入");
-                                logRecord.setOpModule("部门");
-                                JSONArray obj = (JSONArray) json.get("errorMsgInfos");
-                                JSONArray errorMsgs = (JSONArray) json.get("errorMsgs");
-                                Map<String, Object> m = null;
-                                if (obj.size() == 0) {
-                                    m = (Map<String, Object>) errorMsgs.get(0);
-                                    logRecord.setOpContent(m.get("code") + ":" + m.get("msgInfo"));
-                                } else {
-                                    m = (Map<String, Object>) obj.get(0);
-                                    logRecord.setOpContent((String) m.get("msgInfo"));
-                                }
-                                logRecord.setOpContent((String) m.get("msgInfo"));
-                                logRecord.setOpResult("失败！");
-                                logRecordDao.saveLogRecord(logRecord);
+//                                JSONArray obj = (JSONArray) json.get("errorMsgInfos");
+//                                Map<String, Object> m = (Map<String, Object>) obj.get(0);
+//                                //记录更新了哪些
+//                                LogRecord logRecord = new LogRecord();
+//                                logRecord.setId(System.currentTimeMillis());
+//                                logRecord.setUpdateUser("自动同步");
+//                                logRecord.setUpdateDate(new Date());
+//                                logRecord.setOpType("插入");
+//                                logRecord.setOpModule("部门");
+//                                logRecord.setOpContent((String) m.get("msgInfo"));
+//                                logRecord.setOpResult("失败！");
+//                                logRecordDao.saveLogRecord(logRecord);
                             }
                         }
                     } else {
@@ -414,6 +406,8 @@ public class OrgDeptDaoImpl implements OrgDeptDao {
                             updateSql.append(" where id = '" + dept.getDeptid() + "' ");
                             SyncConnectionUtil.insertResult(updateSql.toString());
                         }else{
+                            JSONArray obj = (JSONArray) json.get("errorMsgInfos");
+                            Map<String, Object> m = (Map<String, Object>) obj.get(0);
                             //记录更新了哪些
                             LogRecord logRecord = new LogRecord();
                             logRecord.setId(System.currentTimeMillis());
@@ -421,17 +415,6 @@ public class OrgDeptDaoImpl implements OrgDeptDao {
                             logRecord.setUpdateDate(new Date());
                             logRecord.setOpType("修改");
                             logRecord.setOpModule("部门");
-                            JSONArray obj = (JSONArray) json.get("errorMsgInfos");
-                            JSONArray errorMsgs = (JSONArray) json.get("errorMsgs");
-                            Map<String, Object> m = null;
-                            if (obj.size() == 0) {
-                                m = (Map<String, Object>) errorMsgs.get(0);
-                                logRecord.setOpContent(m.get("code") + ":" + m.get("msgInfo"));
-                            } else {
-                                m = (Map<String, Object>) obj.get(0);
-                                logRecord.setOpContent((String) m.get("msgInfo"));
-                            }
-
                             logRecord.setOpContent((String) m.get("msgInfo"));
                             logRecord.setOpResult("失败！");
                             logRecordDao.saveLogRecord(logRecord);

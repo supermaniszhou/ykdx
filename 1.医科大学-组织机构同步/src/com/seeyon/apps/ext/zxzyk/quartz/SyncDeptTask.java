@@ -32,22 +32,22 @@ public class SyncDeptTask implements Runnable {
         logger.info("==============================同步组织信息执行了吗？======================================");
 
         try {
-            xzykManager.clearTable();
-            xzykManager.insertAll();
+//            xzykManager.clearTable();
+//            xzykManager.insertAll();
             //部门
             orgDeptManager.insertOtherDept();
             orgDeptManager.updateOrgDept();
 //
-//            //职级
-            orgLevelManager.insertOrgLevel();
-            orgLevelManager.updateOrgLevel();
+            //职级
+//            orgLevelManager.insertOrgLevel();
+//            orgLevelManager.updateOrgLevel();
 //
-//            //人员
+            //人员
             orgMemberManager.insertOrgMember();
             orgMemberManager.updateOrgMember();
 
             //跟新人员启用状态
-//            orgMemberManager.updateEnableOrgmember();
+//            /**orgMemberManager.updateEnableOrgmember();*/
 
             orgDeptManager.deleteOrgDept();
             orgMemberManager.deleteOrgMember();

@@ -1,17 +1,14 @@
 package com.seeyon.apps.ext.zxzyk.dao;
 
-//import com.alibaba.fastjson.JSONArray;
-
+import com.alibaba.fastjson.JSONArray;
 import com.seeyon.apps.ext.logRecord.dao.LogRecordDao;
 import com.seeyon.apps.ext.logRecord.po.LogRecord;
 import com.seeyon.apps.ext.zxzyk.po.OrgLevel;
-import com.seeyon.apps.ext.zxzyk.util.JDBCUtil;
 import com.seeyon.apps.ext.zxzyk.util.ReadConfigTools;
 import com.seeyon.apps.ext.zxzyk.util.SyncConnectionUtil;
 import com.seeyon.client.CTPRestClient;
 import com.seeyon.ctp.common.AppContext;
 import com.seeyon.ctp.util.JDBCAgent;
-import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import java.sql.Connection;
@@ -62,9 +59,6 @@ public class OrgLevelDaoImpl implements OrgLevelDao {
         Connection connection = null;
         PreparedStatement ps = null;
         String insertSql = "insert into M_ORG_LEVEL(id,name,code,description) values (?,?,?,?)";
-
-        ArrayList<Map<String, Object>> levelList = client.get("/orgLevels/" + configTools.getOrgAccountId(), ArrayList.class);
-
         try {
             connection = JDBCAgent.getRawConnection();
             connection.setAutoCommit(false);
@@ -87,9 +81,14 @@ public class OrgLevelDaoImpl implements OrgLevelDao {
                             ps.setString(4, "");
                             ps.addBatch();
                         } else {
-                            JSONArray obj = (JSONArray) json.get("errorMsgs");
-                            Map<String, Object> m = (Map<String, Object>) obj.get(0);
-                            Map<String, Object> ment = (Map<String, Object>) m.get("ent");
+                            net.sf.json.JSONArray obj = (net.sf.json.JSONArray) json.get("errorMsgInfos");
+                            net.sf.json.JSONArray obj2 = (net.sf.json.JSONArray) json.get("errorMsgs");
+                            Map<String, Object> m = null;
+                            if (obj.size() > 0) {
+                                m = (Map<String, Object>) obj.get(0);
+                            } else {
+                                m = (Map<String, Object>) obj2.get(0);
+                            }
                             //记录更新了哪些
                             LogRecord logRecord = new LogRecord();
                             logRecord.setId(System.currentTimeMillis());
@@ -97,30 +96,45 @@ public class OrgLevelDaoImpl implements OrgLevelDao {
                             logRecord.setUpdateDate(new Date());
                             logRecord.setOpType("插入");
                             logRecord.setOpModule("职务级别");
-                            logRecord.setOpContent(ment.get("name") + "（" + ment.get("code") + "）:" + (String) m.get("code"));
-                            logRecord.setOpResult("失败！");
-                            logRecordDao.saveLogRecord(logRecord);
-                            String code = (String) m.get("code");
-                            if (code.equals("LEVEL_REPEAT_NAME")) {
-                                for (Map<String, Object> levelMap : levelList) {
-                                    String name = (String) levelMap.get("name");
-                                    String repeatname = (String) ment.get("name");
-                                    if (name.equals(repeatname)) {
-                                        String deptid = levelMap.get("id") + "";
 
-                                        String sql = "select * from M_ORG_LEVEL where id =" + deptid;
-                                        List<Map<String, Object>> list1 = JDBCUtil.doQuery(sql);
-                                        if (list1.size() == 0) {
-                                            ps.setString(1, deptid);
-                                            ps.setString(2, levelMap.get("name") + "");
-                                            ps.setString(3, orgLevel.getLevelcode());
-                                            ps.setString(4, "");
-                                            ps.addBatch();
-                                        }
+                            Map<String, Object> m2 = null;
+                            if (null != m.get("ent")) {
+                                m2 = (Map<String, Object>) m.get("ent");
+
+                                String levelSql = "select id from ORG_LEVEL where name=? and IS_ENABLE=1 and IS_DELETED=0 ";
+                                ResultSet rs = null;
+                                String levelId = "";
+                                try (Connection lecon = JDBCAgent.getRawConnection();
+                                     PreparedStatement lps = lecon.prepareStatement(levelSql)) {
+                                    lps.setString(1, m2.get("name") + "");
+                                    rs = lps.executeQuery();
+                                    while (rs.next()) {
+                                        levelId = rs.getString("id");
+                                    }
+                                } catch (SQLException s) {
+                                    if (null != rs) {
+                                        rs.close();
                                     }
                                 }
 
+                                ps.setString(1, levelId);
+                                ps.setString(2, orgLevel.getLevelname());
+                                ps.setString(3, orgLevel.getLevelcode());
+                                ps.setString(4, "");
+                                ps.addBatch();
                             }
+                            StringBuffer sb = new StringBuffer();
+                            StringBuffer info = new StringBuffer();
+                            if (null != m2) {
+                                info.append(m.get("code") + "(" + m2.get("code") + ":" + m2.get("name") + ")");
+                            } else {
+                                info.append(m.get("code"));
+                            }
+
+                            logRecord.setOpContent(info.toString());
+                            logRecord.setOpResult("失败！");
+                            logRecordDao.saveLogRecord(logRecord);
+
                         }
                     }
                 }
